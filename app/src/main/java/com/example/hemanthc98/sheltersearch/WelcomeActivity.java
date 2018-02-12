@@ -1,5 +1,6 @@
 package com.example.hemanthc98.sheltersearch;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +21,16 @@ public class WelcomeActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent a = new Intent(view.getContext(), LoginActivity.class);
+                startActivity(a);
+            }
+        });
 
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent b = new Intent(view.getContext(), RegisterActivity.class);
+                startActivity(b);
             }
         });
     }

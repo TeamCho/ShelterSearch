@@ -1,4 +1,4 @@
-package com.example.hemanthc98.sheltersearch;
+package com.teamcho.sheltersearch;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

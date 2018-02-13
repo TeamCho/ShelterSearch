@@ -1,4 +1,4 @@
-package com.example.hemanthc98.sheltersearch;
+package com.teamcho.sheltersearch;
 
 import org.junit.Test;
 

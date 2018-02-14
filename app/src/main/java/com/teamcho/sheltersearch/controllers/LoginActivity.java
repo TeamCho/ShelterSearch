@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
 
         //backend = new Database();
-        System.out.println(Database.getPass("admin"));
+
         user = username.getText().toString();
         pass = password.getText().toString();
 
@@ -49,8 +49,6 @@ public class LoginActivity extends AppCompatActivity {
         pass = password.getText().toString();
 
         boolean exists = Database.contains(user);
-        System.out.println(user);
-        System.out.println(exists);
 
         if (exists && pass.equals(Database.getPass(user))) {
             Intent b = new Intent(view.getContext(), MainActivity.class);

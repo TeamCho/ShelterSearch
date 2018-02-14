@@ -7,12 +7,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
+
+    Core backend = new Core();
 
     EditText username;
     EditText password;
     Button login;
     Button cancel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (user.equals("user") && pass.equals("pass")) {
+                //Check if the username exists in the map of users and pass
+                boolean exists = backend.contains(user);
+                if (exists && pass.equals(backend.getPass(user))) {
                     Intent b = new Intent(view.getContext(), MainActivity.class);
                     startActivity(b);
                 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.teamcho.sheltersearch.WelcomeActivity">
+    tools:context="com.teamcho.sheltersearch.controllers.WelcomeActivity">
 
     <TextView
         android:id="@+id/title"
@@ -38,6 +38,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="monospace"
         android:text="Login"
+        android:onClick="onClickLogin"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +56,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="monospace"
         android:text="Register"
+        android:onClick="onClickRegister"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

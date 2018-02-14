@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.teamcho.sheltersearch.model.Database;
 import com.teamcho.sheltersearch.R;
@@ -19,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText password;
     Button login;
     Button cancel;
+    TextView alert;
 
     private String user;
     private String pass;
@@ -31,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         login = (Button) findViewById(R.id.login);
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
+        alert = (TextView) findViewById(R.id.alert);
 
         //backend = new Database();
 
@@ -53,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
         if (exists && pass.equals(Database.getPass(user))) {
             Intent b = new Intent(view.getContext(), MainActivity.class);
             startActivity(b);
+        } else {
+            alert.setText("Login Failed!");
         }
     }
 

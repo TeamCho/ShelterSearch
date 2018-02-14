@@ -33,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         username = (EditText) findViewById(R.id.newUser);
         password = (EditText) findViewById(R.id.newPass);
         alert = (TextView) findViewById(R.id.alert);
+        setTitle("New User Registration");
 
         //backend = new Database();
 

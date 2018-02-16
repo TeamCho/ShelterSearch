@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.teamcho.sheltersearch.model.Database;
@@ -15,14 +16,18 @@ public class RegisterActivity extends AppCompatActivity {
 
     //Database backend;
 
+    EditText u_name;
     EditText username;
     EditText password;
     Button register;
     Button cancel;
     TextView alert;
+    Spinner userType;
 
+    private String name;
     private String user;
     private String pass;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +35,10 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         cancel = (Button) findViewById(R.id.cancel);
         register = (Button) findViewById(R.id.register);
+        u_name = (EditText) findViewById(R.id.newName);
         username = (EditText) findViewById(R.id.newUser);
         password = (EditText) findViewById(R.id.newPass);
+        userType = (Spinner) findViewById(R.id.spinner);
         alert = (TextView) findViewById(R.id.alert);
         setTitle("New User Registration");
 

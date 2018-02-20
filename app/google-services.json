@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "949739768618-3shv41kb4vlne6bt9bvge2391fd7n2n7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teamcho.sheltersearch",
+            "certificate_hash": "179dcc223d095887a78fa4ab7d24dcf4f5416998"
+          }
+        },
+        {
           "client_id": "949739768618-m3ve6kqppi3a5g10j08jrfqlk2j3q1bt.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "949739768618-m3ve6kqppi3a5g10j08jrfqlk2j3q1bt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

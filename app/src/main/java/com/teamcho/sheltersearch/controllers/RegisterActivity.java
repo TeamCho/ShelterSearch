@@ -1,14 +1,22 @@
 package com.teamcho.sheltersearch.controllers;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.teamcho.sheltersearch.model.Database;
 import com.teamcho.sheltersearch.R;
 
@@ -28,6 +36,8 @@ public class RegisterActivity extends AppCompatActivity {
     private String user;
     private String pass;
 
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +50,10 @@ public class RegisterActivity extends AppCompatActivity {
         alert = (TextView) findViewById(R.id.alert);
         setTitle("New User Registration");
 
-        //backend = new Database();
-
         user = username.getText().toString();
         pass = password.getText().toString();
+
+        mAuth = FirebaseAuth.getInstance();
     }
 
     public void onClickCancel(View view) {
@@ -51,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(back);
     }
 
-    public void onClickRegister(View view) {
+    public void onClickRegister(final View view) {
         user = username.getText().toString();
         pass = password.getText().toString();
 
@@ -63,5 +73,23 @@ public class RegisterActivity extends AppCompatActivity {
             Intent b = new Intent(view.getContext(), MainActivity.class);
             startActivity(b);
         }
+
+        mAuth.createUserWithEmailAndPassword(user, pass)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        // If sign in fails, display a message to the user.
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Intent b = new Intent(view.getContext(), MainActivity.class);
+                            startActivity(b);
+                        } else {
+                            alert.setText("Unable to create that user!");
+                        }
+
+                        // ...
+                    }
+                });
     }
 }

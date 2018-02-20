@@ -35,10 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         cancel = (Button) findViewById(R.id.cancel);
         register = (Button) findViewById(R.id.register);
-        u_name = (EditText) findViewById(R.id.newName);
         username = (EditText) findViewById(R.id.newUser);
         password = (EditText) findViewById(R.id.newPass);
-        userType = (Spinner) findViewById(R.id.spinner);
         alert = (TextView) findViewById(R.id.alert);
         setTitle("New User Registration");
 

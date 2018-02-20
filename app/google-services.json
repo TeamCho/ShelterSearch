@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "949739768618",
+    "firebase_url": "https://cs2340project-76d43.firebaseio.com",
+    "project_id": "cs2340project-76d43",
+    "storage_bucket": "cs2340project-76d43.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949739768618:android:39f0c63824c73896",
+        "android_client_info": {
+          "package_name": "com.teamcho.sheltersearch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "949739768618-m3ve6kqppi3a5g10j08jrfqlk2j3q1bt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDP2r1gEUUsP9ENLdTlXGxpm4Xl8eLJkaY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

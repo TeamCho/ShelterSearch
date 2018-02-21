@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ShelterSearch</string>
+    <string-array name="userTypes">
+        <item>User</item>
+        <item>Admin</item>
+    </string-array>
 </resources>

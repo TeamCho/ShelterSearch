@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -50,6 +52,14 @@ public class RegisterActivity extends AppCompatActivity {
         alert = (TextView) findViewById(R.id.alert);
         setTitle("New User Registration");
 
+        //User Type Spinner Setup
+        userType = (Spinner) findViewById(R.id.auth_level_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.userTypes,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        userType.setAdapter(adapter);
+        userType.setSelection(0);
+
         user = username.getText().toString();
         pass = password.getText().toString();
 
@@ -64,6 +74,24 @@ public class RegisterActivity extends AppCompatActivity {
     public void onClickRegister(final View view) {
         user = username.getText().toString();
         pass = password.getText().toString();
+        //Nothing is done with the User Type right now
+        String userAuthType = (String) userType.getSelectedItem();
+
+        if(TextUtils.isEmpty(user)) {
+            //Email is empty
+            alert.setText("Email is missing!");
+            return;
+        }
+        if(TextUtils.isEmpty(pass)) {
+            //Password is empty
+            alert.setText("Password is missing!");
+            return;
+        }
+        if(TextUtils.getTrimmedLength(pass) < 6) {
+            //Password is less than 6
+            alert.setText("Password is less than 6 characters!");
+            return;
+        }
 
         boolean exists = Database.contains(user);
         if (exists) {

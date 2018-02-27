@@ -50,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         username = (EditText) findViewById(R.id.newUser);
         password = (EditText) findViewById(R.id.newPass);
         alert = (TextView) findViewById(R.id.alert);
+        u_name = (EditText) findViewById(R.id.u_name);
         setTitle("New User Registration");
 
         //User Type Spinner Setup
@@ -60,8 +61,6 @@ public class RegisterActivity extends AppCompatActivity {
         userType.setAdapter(adapter);
         userType.setSelection(0);
 
-        user = username.getText().toString();
-        pass = password.getText().toString();
 
         mAuth = FirebaseAuth.getInstance();
     }
@@ -74,6 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void onClickRegister(final View view) {
         user = username.getText().toString();
         pass = password.getText().toString();
+        name = u_name.getText().toString();
         //Nothing is done with the User Type right now
         String userAuthType = (String) userType.getSelectedItem();
 
@@ -92,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
             alert.setText("Password is less than 6 characters!");
             return;
         }
-
+/*
         boolean exists = Database.contains(user);
         if (exists) {
             alert.setText("Username is in use.");
@@ -101,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
             Intent b = new Intent(view.getContext(), MainActivity.class);
             startActivity(b);
         }
-
+*/
         mAuth.createUserWithEmailAndPassword(user, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

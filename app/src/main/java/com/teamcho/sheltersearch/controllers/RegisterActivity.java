@@ -93,14 +93,14 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        boolean exists = Database.contains(user);
-        if (exists) {
-            alert.setText("Username is in use.");
-        } else if (user != "" && pass != "") {
-            Database.newEntry(user, pass);
-            Intent b = new Intent(view.getContext(), MainActivity.class);
-            startActivity(b);
-        }
+//        boolean exists = Database.contains(user);
+//        if (exists) {
+//            alert.setText("Username is in use.");
+//        } else if (user != "" && pass != "") {
+//            Database.newEntry(user, pass);
+//            Intent b = new Intent(view.getContext(), MainActivity.class);
+//            startActivity(b);
+//        }
 
         mAuth.createUserWithEmailAndPassword(user, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

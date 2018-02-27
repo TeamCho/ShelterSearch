@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "949739768618-eq8se6r2lne7c283dlm7sq92e5j7njcl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teamcho.sheltersearch",
+            "certificate_hash": "8acc3b0066fc2636f75da897e51d94f8d653eb6b"
+          }
+        },
+        {
           "client_id": "949739768618-3shv41kb4vlne6bt9bvge2391fd7n2n7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

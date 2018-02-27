@@ -4,4 +4,5 @@
         <item>User</item>
         <item>Admin</item>
     </string-array>
+    <string name="title_activity_shelter">ShelterActivity</string>
 </resources>

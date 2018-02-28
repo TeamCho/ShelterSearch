@@ -10,11 +10,19 @@ public class User {
     private String email;
     private UserType userType;
 
-    public User(String uid, String name, String email, UserType userType) {
+    public User() {
+
+    }
+
+    public User(String uid, String email, String name, UserType userType) {
         this.uid = uid;
         this.name = name;
         this.email = email;
         this.userType = userType;
+    }
+
+    public String getUid() {
+        return this.uid;
     }
 
     public void setEmail(String email) {

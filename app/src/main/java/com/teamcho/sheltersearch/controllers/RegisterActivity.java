@@ -5,64 +5,68 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.teamcho.sheltersearch.model.Database;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.teamcho.sheltersearch.R;
+import com.teamcho.sheltersearch.model.User;
+import com.teamcho.sheltersearch.model.UserType;
 
 public class RegisterActivity extends AppCompatActivity {
 
     //Database backend;
 
-    EditText u_name;
-    EditText username;
-    EditText password;
-    Button register;
-    Button cancel;
+    EditText email_entry;
+    EditText name_entry;
+    EditText password_entry;
+    Button registerButton;
+    Button cancelButton;
     TextView alert;
-    Spinner userType;
+    Spinner userTypeSpinner;
 
-    private String name;
-    private String user;
-    private String pass;
+    private String email_address;
+    private String user_name;
+    private String password;
+
+    private User newUser;
 
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        cancel = (Button) findViewById(R.id.cancel);
-        register = (Button) findViewById(R.id.register);
-        username = (EditText) findViewById(R.id.newUser);
-        password = (EditText) findViewById(R.id.newPass);
+        cancelButton = (Button) findViewById(R.id.cancel_button);
+        registerButton = (Button) findViewById(R.id.register_button);
+        email_entry = (EditText) findViewById(R.id.email_entry);
+        password_entry = (EditText) findViewById(R.id.password_entry);
         alert = (TextView) findViewById(R.id.alert);
-        u_name = (EditText) findViewById(R.id.u_name);
+        name_entry = (EditText) findViewById(R.id.u_name);
         setTitle("New User Registration");
 
         //User Type Spinner Setup
-        userType = (Spinner) findViewById(R.id.auth_level_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.userTypes,android.R.layout.simple_spinner_item);
+        userTypeSpinner = findViewById(R.id.auth_level_spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, UserType.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        userType.setAdapter(adapter);
-        userType.setSelection(0);
-
+        userTypeSpinner.setAdapter(adapter);
+        userTypeSpinner.setSelection(0);
 
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     public void onClickCancel(View view) {
@@ -71,48 +75,45 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onClickRegister(final View view) {
-        user = username.getText().toString();
-        pass = password.getText().toString();
-        name = u_name.getText().toString();
-        //Nothing is done with the User Type right now
-        String userAuthType = (String) userType.getSelectedItem();
+        email_address = email_entry.getText().toString();
+        password = password_entry.getText().toString();
+        user_name = name_entry.getText().toString();
+        final UserType userType = (UserType) userTypeSpinner.getSelectedItem();
 
-        if(TextUtils.isEmpty(user)) {
-            //Email is empty
+        //Email is empty
+        if(TextUtils.isEmpty(email_address)) {
             alert.setText("Email is missing!");
             return;
         }
-        if(TextUtils.isEmpty(pass)) {
-            //Password is empty
+        // Username is empty
+        if(TextUtils.isEmpty(user_name)) {
+            alert.setText("Name is empty!");
+            return;
+        }
+        // Password is empty
+        if(TextUtils.isEmpty(password)) {
             alert.setText("Password is missing!");
             return;
         }
-        if(TextUtils.getTrimmedLength(pass) < 6) {
-            //Password is less than 6
+        // Password is less than 6 characters
+        if(TextUtils.getTrimmedLength(password) < 6) {
             alert.setText("Password is less than 6 characters!");
             return;
         }
-/*
-        boolean exists = Database.contains(user);
-        if (exists) {
-            alert.setText("Username is in use.");
-        } else if (user != "" && pass != "") {
-            Database.newEntry(user, pass);
-            Intent b = new Intent(view.getContext(), MainActivity.class);
-            startActivity(b);
-        }
-*/
-        mAuth.createUserWithEmailAndPassword(user, pass)
+
+        mAuth.createUserWithEmailAndPassword(user_name, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        // If sign in fails, display a message to the user.
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            FirebaseUser currentUser = mAuth.getCurrentUser();
+                            newUser = new User(currentUser.getUid(), email_address, user_name, userType);
+                            mDatabase.child("User").child(currentUser.getUid()).setValue(newUser);
                             Intent b = new Intent(view.getContext(), MainActivity.class);
                             startActivity(b);
                         } else {
+                            // If sign in fails, display a message to the user.
                             alert.setText("Unable to create that user!");
                         }
 

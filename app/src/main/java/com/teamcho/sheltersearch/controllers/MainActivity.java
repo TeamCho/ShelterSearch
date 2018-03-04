@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent a = new Intent(v.getContext(), ShelterActivity.class);
                 a.putExtra("pos", position);
                 startActivity(a);
-
             }
         });
 

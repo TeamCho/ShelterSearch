@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent b = new Intent(view.getContext(), MainActivity.class);
+                            Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
                             startActivity(b);
                         } else {
                             // If sign in fails, display a message to the user.

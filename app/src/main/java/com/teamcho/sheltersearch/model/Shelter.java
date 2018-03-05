@@ -18,7 +18,7 @@ public class Shelter {
     private int key;
 
     public Shelter() {
-
+        
     }
 
     public String getAddress() {

@@ -110,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                             FirebaseUser currentUser = mAuth.getCurrentUser();
                             newUser = new User(currentUser.getUid(), email_address, user_name, userType);
                             mDatabase.child("User").child(currentUser.getUid()).setValue(newUser);
-                            Intent b = new Intent(view.getContext(), MainActivity.class);
+                            Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
                             startActivity(b);
                         } else {
                             // If sign in fails, display a message to the user.

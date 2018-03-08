@@ -3,9 +3,11 @@ package com.teamcho.sheltersearch.controllers;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.teamcho.sheltersearch.R;
@@ -40,6 +42,8 @@ public class UserHomeScreenActivity extends AppCompatActivity {
     }
 
     public void onClickSearch(final View view) {
+        shelterList = new ArrayList<>();
+        shelterNameList = new ArrayList<>();
         String searchText = searchData.getText().toString();
         if (searchText.equals("Male")) {
             for (Shelter s: allShelters) {

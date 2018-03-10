@@ -16,6 +16,7 @@ public class Shelter {
     private String name;
     private String notes;
     private int key;
+    private int vacancies;
 
     public Shelter() {
         
@@ -91,5 +92,13 @@ public class Shelter {
 
     public void setKey(int key) {
         this.key = key;
+    }
+
+    public int getVacancies() {
+        return vacancies;
+    }
+
+    public void setVacancies(int vacancies) {
+        this.vacancies = vacancies;
     }
 }

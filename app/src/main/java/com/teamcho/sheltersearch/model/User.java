@@ -9,6 +9,7 @@ public class User {
     private String name;
     private String email;
     private UserType userType;
+    private Shelter booking;
 
     public User() {
 
@@ -19,6 +20,7 @@ public class User {
         this.name = name;
         this.email = email;
         this.userType = userType;
+        this.booking = null;
     }
 
     public String getUid() {
@@ -47,5 +49,13 @@ public class User {
 
     public String getUserType() {
         return this.userType.getUserType();
+    }
+
+    public Shelter getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Shelter shelter) {
+        this.booking = shelter;
     }
 }

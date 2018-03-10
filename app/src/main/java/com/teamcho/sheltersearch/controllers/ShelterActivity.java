@@ -25,6 +25,7 @@ public class ShelterActivity extends AppCompatActivity {
     TextView notes;
     TextView longi;
     TextView lat;
+    TextView vacancies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,5 +61,9 @@ public class ShelterActivity extends AppCompatActivity {
     public void onBack (View view) {
         Intent b = new Intent(view.getContext(), MainActivity.class);
         startActivity(b);
+    }
+
+    public void onBook(View view) {
+
     }
 }

@@ -19,8 +19,8 @@ public class UserHomeScreenActivity extends AppCompatActivity {
     Button shelters;
     EditText searchData;
     private FirebaseAuth mAuth;
-    ArrayList<Shelter> shelterList;
-    ArrayList<String> shelterNameList;
+    ArrayList<Shelter> shelterList =  new ArrayList<Shelter>();
+    ArrayList<String> shelterNameList = new ArrayList<String>();
     ArrayList<Shelter> allShelters = Database.getShelterList();
 
     @Override

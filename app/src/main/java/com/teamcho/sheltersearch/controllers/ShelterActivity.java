@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.teamcho.sheltersearch.R;
 import com.teamcho.sheltersearch.model.Database;
 import com.teamcho.sheltersearch.model.Shelter;
@@ -26,6 +27,7 @@ public class ShelterActivity extends AppCompatActivity {
     TextView longi;
     TextView lat;
     TextView vacancies;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,9 @@ public class ShelterActivity extends AppCompatActivity {
         notes = (TextView) findViewById(R.id.notes);
         longi = (TextView) findViewById(R.id.longi);
         lat = (TextView) findViewById(R.id.lat);
+        vacancies = (TextView) findViewById(R.id.vacancies);
+
+        mAuth = FirebaseAuth.getInstance();
 
         Shelter current = Database.getShelterList().get(pos);
 
@@ -52,7 +57,7 @@ public class ShelterActivity extends AppCompatActivity {
         restrictions.setText(current.getRestrictions());
         notes.setText(current.getNotes());
 
-
+        vacancies.setText("Vacancies: " + current.getVacancies());
         longi.setText(Double.toString(current.getLongitude()));
         lat.setText(Double.toString(current.getLatitude()));
 

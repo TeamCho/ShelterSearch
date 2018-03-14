@@ -42,8 +42,6 @@ public class UserHomeScreenActivity extends AppCompatActivity {
     }
 
     public void onClickSearch(final View view) {
-        shelterList = new ArrayList<>();
-        shelterNameList = new ArrayList<>();
         String searchText = searchData.getText().toString();
         if (searchText.equals("Male")) {
             for (Shelter s: allShelters) {

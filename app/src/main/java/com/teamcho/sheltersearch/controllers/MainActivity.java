@@ -57,5 +57,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(a);
     }
 
+    public void onBack(View view) {
+        Database.loadData();
+        Intent intent = new Intent(view.getContext(), UserHomeScreenActivity.class);
+        startActivity(intent);
+    }
+
 
 }

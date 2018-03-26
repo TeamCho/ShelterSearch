@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +28,8 @@ public class ShelterActivity extends AppCompatActivity {
     TextView longi;
     TextView lat;
     TextView vacancies;
+    EditText bookNumber;
+    TextView alert;
     FirebaseAuth mAuth;
 
     @Override
@@ -45,6 +48,8 @@ public class ShelterActivity extends AppCompatActivity {
         longi = (TextView) findViewById(R.id.longi);
         lat = (TextView) findViewById(R.id.lat);
         vacancies = (TextView) findViewById(R.id.vacancies);
+        bookNumber = (EditText) findViewById(R.id.bookNumber);
+        alert = (TextView) findViewById(R.id.alert);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -60,7 +65,6 @@ public class ShelterActivity extends AppCompatActivity {
         vacancies.setText("Vacancies: " + current.getVacancies());
         longi.setText(Double.toString(current.getLongitude()));
         lat.setText(Double.toString(current.getLatitude()));
-
     }
 
     public void onBack (View view) {
@@ -69,6 +73,39 @@ public class ShelterActivity extends AppCompatActivity {
     }
 
     public void onBook(View view) {
+        //Gets the current Shelter
+        int pos = getIntent().getIntExtra("pos", 0);
+        Shelter current = Database.getShelterList().get(pos);
 
+        /* Obtains the current number of vacancies */
+        int currentVacancies = current.getVacancies();
+
+        //TODO: A variable to keep track of what shelter the user is at.
+        //TODO: Need to ensure that beds are only booked for one shelter.
+        //TODO: Need to store how many beds are taken with the user.
+        //Attributes: email, name, uid, userType
+        //New Attributes: currentShelter, bedsOccupied
+        //User's variable that shows current Shelter is modified
+        //Should be stored in the User Database as an attribute of the user.
+        //Access the attribute and see if it is not null.
+        //How do I read data from the firebase database?
+
+        /* The number of beds the user wants to reserve. */
+        int bedsTaken = Integer.parseInt(bookNumber.getText().toString());
+
+        //TODO: Fix the if statement in accordance with the user variable and number to book.
+        if(currentVacancies - bedsTaken > 0) {
+            //Updates the current amount of vacancies
+            current.setVacancies(currentVacancies - bedsTaken);
+        } else {
+            alert.setText("This Shelter currently is full!");
+        }
+
+        Intent b = new Intent(view.getContext(), ShelterActivity.class);
+        startActivity(b);
+    }
+
+    public void onCancel(View view) {
+        //TODO: What happens when the reservation/booking is cancelled.
     }
 }

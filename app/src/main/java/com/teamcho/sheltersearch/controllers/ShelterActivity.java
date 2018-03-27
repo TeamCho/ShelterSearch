@@ -110,12 +110,9 @@ public class ShelterActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> userList = dataSnapshot.getChildren();
                 for (DataSnapshot user : userList) {
-                    User curr = user.getValue(User.class);
-                    if(curr.getUid().equals(currentUser)) {
-                       String booking = curr.getBooking().toString();
-                       int bedsTaken = curr.getBedsTaken();
-                       bookingHolder.add(booking);
-                       bedsTakenHolder.add(bedsTaken);
+                    if(user.equals(currentUser)) {
+                        bookingHolder.add(user.child("booking").toString());
+                        bedsTakenHolder.add(Integer.parseInt(user.child("bedsTaken").toString()));
                     }
                 }
 

@@ -33,6 +33,7 @@ public class UserHomeScreenActivity extends AppCompatActivity {
         shelters = (Button) findViewById(R.id.shelters);
         searchData = (EditText) findViewById(R.id.search_data);
         mAuth = FirebaseAuth.getInstance();
+        Database.clearData();
         Database.loadData();
     }
 

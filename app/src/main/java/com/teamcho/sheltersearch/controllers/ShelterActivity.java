@@ -142,7 +142,7 @@ public class ShelterActivity extends AppCompatActivity {
         startActivity(b);
     }
 
-    public void onBook(View view) 
+    public void onBook(View view) {
 
         
         /* The number of beds the user wants to reserve. */

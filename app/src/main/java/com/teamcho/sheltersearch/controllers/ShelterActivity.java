@@ -120,11 +120,11 @@ public class ShelterActivity extends AppCompatActivity {
             }
         });
         if(currentVacancies == 0 || user_Shelter != current.getKey()) {
-            book.setVisibility(View.INVISIBLE);
+            book.setVisibility(View.GONE);
         }
 
         if(user_Shelter == current.getKey()) {
-            cancel.setVisibility(View.INVISIBLE);
+            cancel.setVisibility(View.GONE);
         }
 
     }

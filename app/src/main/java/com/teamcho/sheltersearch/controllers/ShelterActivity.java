@@ -144,7 +144,7 @@ public class ShelterActivity extends AppCompatActivity {
             dbRef.child(current.getKey() + "").child("vacancies").setValue(currentVacancies - bedsTaken);
 
 
-
+            Database.loadData();
             Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
             startActivity(b);
         } else {
@@ -162,6 +162,7 @@ public class ShelterActivity extends AppCompatActivity {
             mDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(0);
             //Updates the user's booking
             mDatabase.child(currentUser.getUid()).child("booking").setValue(Integer.MAX_VALUE);
+            Database.loadData();
             Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
             startActivity(b);
         } catch (Exception e) {

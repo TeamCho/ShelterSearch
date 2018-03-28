@@ -9,20 +9,20 @@ public class User {
     private String name;
     private String email;
     private UserType userType;
-    private Shelter booking;
+    private int booking;
     private int bedsTaken;
 
     public User() {
 
     }
 
-    public User(String uid, String email, String name, UserType userType) {
+    public User(String uid, String email, String name, UserType userType, int booking, int bedsTaken) {
         this.uid = uid;
         this.name = name;
         this.email = email;
         this.userType = userType;
-        this.booking = null;
-        this.bedsTaken = 0;
+        this.booking = booking;
+        this.bedsTaken = bedsTaken;
     }
 
     public String getUid() {
@@ -53,11 +53,11 @@ public class User {
         return this.userType.getUserType();
     }
 
-    public Shelter getBooking() {
+    public int getBooking() {
         return booking;
     }
 
-    public void setBooking(Shelter shelter) {
+    public void setBooking(int shelter) {
         this.booking = shelter;
     }
 

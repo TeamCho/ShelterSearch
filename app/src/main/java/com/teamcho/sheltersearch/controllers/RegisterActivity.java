@@ -80,6 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
         user_name = name_entry.getText().toString();
         final UserType userType = (UserType) userTypeSpinner.getSelectedItem();
 
+
         //Email is empty
         if(TextUtils.isEmpty(email_address)) {
             alert.setText("Email is missing!");
@@ -108,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser currentUser = mAuth.getCurrentUser();
-                            newUser = new User(currentUser.getUid(), email_address, user_name, userType);
+                            newUser = new User(currentUser.getUid(), email_address, user_name, userType,Integer.MAX_VALUE,0);
                             mDatabase.child("User").child(currentUser.getUid()).setValue(newUser);
                             Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
                             startActivity(b);

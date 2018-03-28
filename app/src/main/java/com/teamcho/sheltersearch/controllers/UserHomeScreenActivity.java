@@ -58,8 +58,15 @@ public class UserHomeScreenActivity extends AppCompatActivity {
                 }
             }
         } else if (searchText.equals("Families w/ newborns")) {
-            for (Shelter s: allShelters) {
+            for (Shelter s : allShelters) {
                 if (s.getRestrictions().equals("Families w/ newborns")) {
+                    shelterList.add(s);
+                    shelterNameList.add(s.getName());
+                }
+            }
+        } else if (searchText.contains("Families")) {
+            for (Shelter s : allShelters) {
+                if (s.getRestrictions().contains("Families w/ newborns")) {
                     shelterList.add(s);
                     shelterNameList.add(s.getName());
                 }

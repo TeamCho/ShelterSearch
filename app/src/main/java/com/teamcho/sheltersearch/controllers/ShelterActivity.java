@@ -40,9 +40,22 @@ public class ShelterActivity extends AppCompatActivity {
     TextView vacancies;
     EditText bookNumber;
     TextView alert;
+    Button book;
+    Button cancel;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private FirebaseUser currentUser;
+    private int currentVacancies;
+    private Shelter current;
+    private int user_Shelter;
+    private int bedsTaken;
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +76,13 @@ public class ShelterActivity extends AppCompatActivity {
         bookNumber = (EditText) findViewById(R.id.bookNumber);
         alert = (TextView) findViewById(R.id.alert);
 
+        book = (Button) findViewById(R.id.bookBed);
+        cancel = (Button) findViewById(R.id.cancel);
+
+
         mAuth = FirebaseAuth.getInstance();
 
-        Shelter current = Database.getShelterList().get(pos);
+        current = Database.getShelterList().get(pos);
 
         name.setText(current.getName());
         address.setText(current.getAddress());
@@ -77,32 +94,20 @@ public class ShelterActivity extends AppCompatActivity {
         vacancies.setText("Vacancies: " + current.getVacancies());
         longi.setText(Double.toString(current.getLongitude()));
         lat.setText(Double.toString(current.getLatitude()));
-    }
 
-    public void onBack (View view) {
-        Intent b = new Intent(view.getContext(), MainActivity.class);
-        startActivity(b);
-    }
 
-    public void onBook(View view) {
         //Gets the current Shelter
-        int pos = getIntent().getIntExtra("pos", 0);
-        Shelter current = Database.getShelterList().get(pos);
 
         /* Obtains the current number of vacancies */
-        int currentVacancies = current.getVacancies();
+        currentVacancies = current.getVacancies();
 
         //The current user
         mAuth = FirebaseAuth.getInstance();
-        final FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
 
         //mDatabase is the User Database
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        mDatabase = database.getReference("/User");
 
-        //Holder arrays to get te data out of inner class.
-        final ArrayList<String> bookingHolder = new ArrayList<>();
-        final ArrayList<Integer> bedsTakenHolder = new ArrayList<>();
+        mDatabase = database.getReference("/User");
 
         //Gets information about the current user.
         mDatabase.addValueEventListener(new ValueEventListener() {
@@ -110,9 +115,9 @@ public class ShelterActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> userList = dataSnapshot.getChildren();
                 for (DataSnapshot user : userList) {
-                    if(user.equals(currentUser)) {
-                        bookingHolder.add(user.child("booking").toString());
-                        bedsTakenHolder.add(Integer.parseInt(user.child("bedsTaken").toString()));
+                    if(user.child("uid").toString().equals(currentUser.getUid())) {
+                        user_Shelter = Integer.parseInt(user.child("booking").toString());
+                        bedsTaken = Integer.parseInt(user.child("bedsTaken").toString());
                     }
                 }
 
@@ -122,6 +127,22 @@ public class ShelterActivity extends AppCompatActivity {
 
             }
         });
+        if(currentVacancies == 0 || user_Shelter != current.getKey()) {
+            book.setVisibility(View.INVISIBLE);
+        }
+
+        if(user_Shelter == current.getKey()) {
+            cancel.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
+    public void onBack (View view) {
+        Intent b = new Intent(view.getContext(), MainActivity.class);
+        startActivity(b);
+    }
+
+    public void onBook(View view) 
 
         /* The number of beds the user wants to reserve. */
         int bedsTaken = Integer.parseInt(bookNumber.getText().toString());
@@ -142,6 +163,8 @@ public class ShelterActivity extends AppCompatActivity {
             alert.setText("This Shelter currently is full!");
         }
     }
+
+
 
     public void onCancel(View view) {
         //TODO: What happens when the reservation/booking is cancelled.

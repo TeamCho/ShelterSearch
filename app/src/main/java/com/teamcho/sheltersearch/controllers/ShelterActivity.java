@@ -151,18 +151,7 @@ public class ShelterActivity extends AppCompatActivity {
             //Updates the user's booking
             mDatabase.child(currentUser.getUid()).child("booking").setValue(current.getKey());
             dbRef = database.getReference("/Shelter");
-            final int vacanciesAfterBook = currentVacancies - bedsTaken;
-            dbRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    dbRef.child(current.getName()).child("vacancies").setValue(vacanciesAfterBook);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+            dbRef.child(current.getKey() + "").child("vacancies").setValue(currentVacancies - bedsTaken);
 
 
 

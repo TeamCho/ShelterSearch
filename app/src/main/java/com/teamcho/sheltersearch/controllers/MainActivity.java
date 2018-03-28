@@ -38,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
         names = Database.getShelterNameList();
         listView = (ListView) findViewById(R.id.list);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, names);
+        runOnUiThread(new Runnable() {
+            public void run() {
+                adapter.notifyDataSetChanged();
+            }
+        });
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

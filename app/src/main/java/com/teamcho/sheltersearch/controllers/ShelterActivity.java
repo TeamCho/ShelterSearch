@@ -58,7 +58,6 @@ public class ShelterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter);
         int pos = getIntent().getIntExtra("pos", 0);
-        Database.loadData();
         back = (Button) findViewById(R.id.back);
         name = (TextView) findViewById(R.id.name);
         address = (TextView) findViewById(R.id.address);

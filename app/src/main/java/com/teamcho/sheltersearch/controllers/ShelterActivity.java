@@ -120,7 +120,7 @@ public class ShelterActivity extends AppCompatActivity {
 
             }
         });
-        if(currentVacancies == 0 || user_Shelter != current.getKey()) {
+        if(currentVacancies == 0 || user_Shelter != Integer.MAX_VALUE) {
             book.setVisibility(View.GONE);
         }
 
@@ -139,19 +139,19 @@ public class ShelterActivity extends AppCompatActivity {
 
 
         /* The number of beds the user wants to reserve. */
-        int newBedsTaken = Integer.parseInt(bookNumber.getText().toString());
+        int bedsTaken = Integer.parseInt(bookNumber.getText().toString());
 
         //TODO: Fix the if statement in accordance with the user variable and number to book.
         if(currentVacancies - bedsTaken > 0) {
             //Updates the current amount of vacancies
-            current.setVacancies(currentVacancies - newBedsTaken);
+            current.setVacancies(currentVacancies - bedsTaken);
 
             //Updates the user's bedsTaken
-            mDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(bedsTaken + newBedsTaken);
+            mDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(bedsTaken);
             //Updates the user's booking
             mDatabase.child(currentUser.getUid()).child("booking").setValue(current.getKey());
             dbRef = database.getReference("/Shelter");
-            dbRef.child(current.getKey() + "").child("vacancies").setValue(currentVacancies - newBedsTaken);
+            dbRef.child(current.getKey() + "").child("vacancies").setValue(currentVacancies - bedsTaken);
 
 
 

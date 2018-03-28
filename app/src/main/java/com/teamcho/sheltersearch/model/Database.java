@@ -22,6 +22,7 @@ public class Database {
     private static Map<String, String> userMap = new HashMap<String, String>(){{ put("admin", "pass123"); }};
     private static ArrayList<String> shelterNameList;
     private static ArrayList<Shelter> shelterList;
+    private static ArrayList<User> userList;
 
 
     public static  void loadData() {
@@ -47,6 +48,24 @@ public class Database {
 
             }
         });
+        final DatabaseReference userRef = database.getReference("/User");
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                for (DataSnapshot item : children) {
+                    User r = item.getValue(User.class);
+                    userList.add(r);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public static ArrayList<String> getShelterNameList() {
@@ -63,6 +82,10 @@ public class Database {
 
     public static void setShelterList(ArrayList<Shelter> shelterList) {
         Database.shelterList = shelterList;
+    }
+
+    public static ArrayList<User> getUserList() {
+        return userList;
     }
 
     public static boolean contains(String name){

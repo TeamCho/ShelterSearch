@@ -58,7 +58,7 @@ public class ShelterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter);
         int pos = getIntent().getIntExtra("pos", 0);
-
+        Database.loadData();
         back = (Button) findViewById(R.id.back);
         name = (TextView) findViewById(R.id.name);
         address = (TextView) findViewById(R.id.address);
@@ -100,20 +100,14 @@ public class ShelterActivity extends AppCompatActivity {
 
         //mDatabase is the User Database
 
-        mDatabase = database.getReference("/User");
-
-        //Gets information about the current user.
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                user_Shelter = Integer.parseInt(mDatabase.child(currentUser.getUid()).child("booking").toString());
-                bedsTaken = Integer.parseInt(mDatabase.child(currentUser.getUid()).child("bedsTaken").toString());
+        for (User user : Database.getUserList()) {
+            if (user.getUid().equals(currentUser.getUid())) {
+                user_Shelter = user.getBooking();
+                bedsTaken = user.getBedsTaken();
+                break;
             }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+        }
 
-            }
-        });
         if(currentVacancies == 0 || user_Shelter != Integer.MAX_VALUE) {
             book.setVisibility(View.GONE);
         }

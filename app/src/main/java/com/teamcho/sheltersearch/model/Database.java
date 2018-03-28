@@ -20,14 +20,12 @@ import java.util.Map;
 public class Database {
 
     private static Map<String, String> userMap = new HashMap<String, String>(){{ put("admin", "pass123"); }};
-    private static ArrayList<String> shelterNameList;
-    private static ArrayList<Shelter> shelterList;
+    private static ArrayList<String> shelterNameList = new ArrayList<>();
+    private static ArrayList<Shelter> shelterList = new ArrayList<>();
     private static ArrayList<User> userList = new ArrayList<>();
 
 
     public static  void loadData() {
-        shelterNameList = new ArrayList<>();
-        shelterList = new ArrayList<>();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference dbRef = database.getReference("/Shelter");
         dbRef.addValueEventListener(new ValueEventListener() {

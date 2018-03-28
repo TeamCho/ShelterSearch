@@ -49,7 +49,7 @@ public class ShelterActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private int currentVacancies;
     private Shelter current;
-    private int user_Shelter;
+    int user_Shelter;
     int bedsTaken;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
 

@@ -108,6 +108,7 @@ public class ShelterActivity extends AppCompatActivity {
             }
         }
 
+
         if(currentVacancies == 0 || user_Shelter != Integer.MAX_VALUE) {
             book.setVisibility(View.GONE);
         }

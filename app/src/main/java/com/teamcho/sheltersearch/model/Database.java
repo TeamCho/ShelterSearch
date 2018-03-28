@@ -48,6 +48,7 @@ public class Database {
 
             }
         });
+
         final DatabaseReference userRef = database.getReference("/User");
         userRef.addValueEventListener(new ValueEventListener() {
             @Override

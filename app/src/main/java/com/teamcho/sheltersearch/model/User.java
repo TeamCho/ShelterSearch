@@ -8,7 +8,7 @@ public class User {
     private String uid;
     private String name;
     private String email;
-    private UserType userType;
+    private String userType;
     private int booking;
     private int bedsTaken;
 
@@ -16,7 +16,7 @@ public class User {
 
     }
 
-    public User(String uid, String email, String name, UserType userType, int booking, int bedsTaken) {
+    public User(String uid, String email, String name, String userType, int booking, int bedsTaken) {
         this.uid = uid;
         this.name = name;
         this.email = email;
@@ -45,12 +45,12 @@ public class User {
         return this.name;
     }
 
-    public void setUserType(UserType userType) {
+    public void setUserType(String userType) {
         this.userType = userType;
     }
 
     public String getUserType() {
-        return this.userType.getUserType();
+        return this.userType;
     }
 
     public int getBooking() {

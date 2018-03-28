@@ -78,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
         email_address = email_entry.getText().toString();
         password = password_entry.getText().toString();
         user_name = name_entry.getText().toString();
-        final UserType userType = (UserType) userTypeSpinner.getSelectedItem();
+        final String userType = (String) userTypeSpinner.getSelectedItem();
 
 
         //Email is empty

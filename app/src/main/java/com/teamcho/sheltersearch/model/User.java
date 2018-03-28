@@ -10,6 +10,7 @@ public class User {
     private String email;
     private UserType userType;
     private Shelter booking;
+    private int bedsTaken;
 
     public User() {
 
@@ -21,6 +22,7 @@ public class User {
         this.email = email;
         this.userType = userType;
         this.booking = null;
+        this.bedsTaken = 0;
     }
 
     public String getUid() {
@@ -58,4 +60,8 @@ public class User {
     public void setBooking(Shelter shelter) {
         this.booking = shelter;
     }
+
+    public int getBedsTaken() {return bedsTaken;}
+
+    public void setBedsTaken(int num) {this.bedsTaken = num;}
 }

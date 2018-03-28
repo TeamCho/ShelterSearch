@@ -12,9 +12,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.teamcho.sheltersearch.R;
 import com.teamcho.sheltersearch.model.Database;
 import com.teamcho.sheltersearch.model.Shelter;
+import com.teamcho.sheltersearch.model.User;
+
+import java.util.ArrayList;
 
 public class ShelterActivity extends AppCompatActivity {
 
@@ -30,7 +40,9 @@ public class ShelterActivity extends AppCompatActivity {
     TextView vacancies;
     EditText bookNumber;
     TextView alert;
-    FirebaseAuth mAuth;
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,29 +92,55 @@ public class ShelterActivity extends AppCompatActivity {
         /* Obtains the current number of vacancies */
         int currentVacancies = current.getVacancies();
 
-        //TODO: A variable to keep track of what shelter the user is at.
-        //TODO: Need to ensure that beds are only booked for one shelter.
-        //TODO: Need to store how many beds are taken with the user.
-        //Attributes: email, name, uid, userType
-        //New Attributes: currentShelter, bedsOccupied
-        //User's variable that shows current Shelter is modified
-        //Should be stored in the User Database as an attribute of the user.
-        //Access the attribute and see if it is not null.
-        //How do I read data from the firebase database?
+        //The current user
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        //mDatabase is the User Database
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        mDatabase = database.getReference("/User");
+
+        //Holder arrays to get te data out of inner class.
+        final ArrayList<String> bookingHolder = new ArrayList<>();
+        final ArrayList<Integer> bedsTakenHolder = new ArrayList<>();
+
+        //Gets information about the current user.
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> userList = dataSnapshot.getChildren();
+                for (DataSnapshot user : userList) {
+                    if(user.equals(currentUser)) {
+                        bookingHolder.add(user.child("booking").toString());
+                        bedsTakenHolder.add(Integer.parseInt(user.child("bedsTaken").toString()));
+                    }
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         /* The number of beds the user wants to reserve. */
         int bedsTaken = Integer.parseInt(bookNumber.getText().toString());
 
         //TODO: Fix the if statement in accordance with the user variable and number to book.
-        if(currentVacancies - bedsTaken > 0) {
+        if(currentVacancies - bedsTaken > 0 && bookingHolder.get(0) == null) {
             //Updates the current amount of vacancies
             current.setVacancies(currentVacancies - bedsTaken);
+
+            //Updates the user's bedsTaken
+            mDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(bedsTaken);
+            //Updates the user's booking
+            mDatabase.child(currentUser.getUid()).child("booking").setValue(current);
+
+            Intent b = new Intent(view.getContext(), ShelterActivity.class);
+            startActivity(b);
         } else {
             alert.setText("This Shelter currently is full!");
         }
-
-        Intent b = new Intent(view.getContext(), ShelterActivity.class);
-        startActivity(b);
     }
 
     public void onCancel(View view) {

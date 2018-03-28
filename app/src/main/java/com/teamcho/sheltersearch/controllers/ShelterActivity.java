@@ -71,7 +71,7 @@ public class ShelterActivity extends AppCompatActivity {
         bookNumber = (EditText) findViewById(R.id.bookNumber);
         alert = (TextView) findViewById(R.id.alert);
         book = (Button) findViewById(R.id.bookBed);
-        cancel = (Button) findViewById(R.id.cancel);
+        cancel = (Button) findViewById(R.id.cancelRes);
 
         mAuth = FirebaseAuth.getInstance();
 

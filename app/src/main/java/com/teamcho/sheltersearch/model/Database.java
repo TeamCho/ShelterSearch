@@ -67,6 +67,12 @@ public class Database {
         });
     }
 
+    public static void clearData() {
+        shelterNameList = new ArrayList<>();
+        shelterList = new ArrayList<>();
+        userList = new ArrayList<>();
+    }
+
     public static ArrayList<String> getShelterNameList() {
         return shelterNameList;
     }

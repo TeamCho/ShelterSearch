@@ -109,6 +109,7 @@ public class ShelterActivity extends AppCompatActivity {
         }
 
 
+
         if(currentVacancies == 0 || user_Shelter != Integer.MAX_VALUE) {
             book.setVisibility(View.GONE);
         }
@@ -120,6 +121,7 @@ public class ShelterActivity extends AppCompatActivity {
     }
 
     public void onBack (View view) {
+        Database.loadData();
         Intent b = new Intent(view.getContext(), MainActivity.class);
         startActivity(b);
     }
@@ -141,6 +143,7 @@ public class ShelterActivity extends AppCompatActivity {
             mDatabase.child(currentUser.getUid()).child("booking").setValue(current.getKey());
             dbRef = database.getReference("/Shelter");
             dbRef.child(current.getKey() + "").child("vacancies").setValue(currentVacancies - bedsTaken);
+            Database.clearData();
             Database.loadData();
             Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
             startActivity(b);
@@ -159,6 +162,7 @@ public class ShelterActivity extends AppCompatActivity {
             mDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(0);
             //Updates the user's booking
             mDatabase.child(currentUser.getUid()).child("booking").setValue(Integer.MAX_VALUE);
+            Database.clearData();
             Database.loadData();
             Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
             startActivity(b);

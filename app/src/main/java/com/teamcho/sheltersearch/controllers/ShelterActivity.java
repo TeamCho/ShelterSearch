@@ -99,6 +99,7 @@ public class ShelterActivity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
 
         //mDatabase is the User Database
+        mDatabase = database.getReference("/User");
 
         for (User user : Database.getUserList()) {
             if (user.getUid().equals(currentUser.getUid())) {

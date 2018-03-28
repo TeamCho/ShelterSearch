@@ -141,8 +141,6 @@ public class ShelterActivity extends AppCompatActivity {
             mDatabase.child(currentUser.getUid()).child("booking").setValue(current.getKey());
             dbRef = database.getReference("/Shelter");
             dbRef.child(current.getKey() + "").child("vacancies").setValue(currentVacancies - bedsTaken);
-
-
             Database.loadData();
             Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
             startActivity(b);

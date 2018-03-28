@@ -54,14 +54,14 @@ public class User {
     }
 
     public int getBooking() {
-        return booking;
+        return this.booking;
     }
 
     public void setBooking(int shelter) {
         this.booking = shelter;
     }
 
-    public int getBedsTaken() {return bedsTaken;}
+    public int getBedsTaken() {return this.bedsTaken;}
 
     public void setBedsTaken(int num) {this.bedsTaken = num;}
 }

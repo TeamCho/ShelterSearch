@@ -45,11 +45,12 @@ public class ShelterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private DatabaseReference dbRef;
     private FirebaseUser currentUser;
     private int currentVacancies;
     private Shelter current;
     private int user_Shelter;
-    private int bedsTaken;
+    int bedsTaken = 0;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
@@ -143,14 +144,26 @@ public class ShelterActivity extends AppCompatActivity {
         //TODO: Fix the if statement in accordance with the user variable and number to book.
         if(currentVacancies - bedsTaken > 0) {
             //Updates the current amount of vacancies
-            //current.setVacancies(currentVacancies - bedsTaken);
+            current.setVacancies(currentVacancies - bedsTaken);
 
             //Updates the user's bedsTaken
             mDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(bedsTaken);
             //Updates the user's booking
             mDatabase.child(currentUser.getUid()).child("booking").setValue(current.getKey());
-            DatabaseReference dbRef = database.getReference("/Shelter");
-            dbRef.child(current.getName()).child("vacancies").setValue(currentVacancies - bedsTaken);
+            dbRef = database.getReference("/Shelter");
+            final int vacanciesAfterBook = currentVacancies - bedsTaken;
+            dbRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    dbRef.child(current.getName()).child("vacancies").setValue(vacanciesAfterBook);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
 
 
             Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);

@@ -50,7 +50,7 @@ public class ShelterActivity extends AppCompatActivity {
     private int currentVacancies;
     private Shelter current;
     private int user_Shelter;
-    int bedsTaken = 0;
+    int bedsTaken;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override

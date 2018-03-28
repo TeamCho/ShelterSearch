@@ -144,20 +144,24 @@ public class ShelterActivity extends AppCompatActivity {
 
     public void onBook(View view) 
 
+        
         /* The number of beds the user wants to reserve. */
         int bedsTaken = Integer.parseInt(bookNumber.getText().toString());
 
         //TODO: Fix the if statement in accordance with the user variable and number to book.
-        if(currentVacancies - bedsTaken > 0 && bookingHolder.get(0) == null) {
+        if(currentVacancies - bedsTaken > 0) {
             //Updates the current amount of vacancies
-            current.setVacancies(currentVacancies - bedsTaken);
+            //current.setVacancies(currentVacancies - bedsTaken);
 
             //Updates the user's bedsTaken
             mDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(bedsTaken);
             //Updates the user's booking
-            mDatabase.child(currentUser.getUid()).child("booking").setValue(current);
+            mDatabase.child(currentUser.getUid()).child("booking").setValue(current.getKey());
+            DatabaseReference dbRef = database.getReference("/Shelter");
+            dbRef.child(current.getName()).child("vacancies").setValue(currentVacancies - bedsTaken);
 
-            Intent b = new Intent(view.getContext(), ShelterActivity.class);
+
+            Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
             startActivity(b);
         } else {
             alert.setText("This Shelter currently is full!");

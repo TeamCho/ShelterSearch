@@ -52,6 +52,11 @@ public class ShelterActivity extends AppCompatActivity {
     private int bedsTaken;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +75,10 @@ public class ShelterActivity extends AppCompatActivity {
         vacancies = (TextView) findViewById(R.id.vacancies);
         bookNumber = (EditText) findViewById(R.id.bookNumber);
         alert = (TextView) findViewById(R.id.alert);
+
         book = (Button) findViewById(R.id.bookBed);
         cancel = (Button) findViewById(R.id.cancel);
+
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -87,6 +94,7 @@ public class ShelterActivity extends AppCompatActivity {
         vacancies.setText("Vacancies: " + current.getVacancies());
         longi.setText(Double.toString(current.getLongitude()));
         lat.setText(Double.toString(current.getLatitude()));
+
 
         //Gets the current Shelter
 
@@ -134,31 +142,29 @@ public class ShelterActivity extends AppCompatActivity {
         startActivity(b);
     }
 
-    public void onBook(View view) {
-
+    public void onBook(View view) 
 
         /* The number of beds the user wants to reserve. */
         int bedsTaken = Integer.parseInt(bookNumber.getText().toString());
 
         //TODO: Fix the if statement in accordance with the user variable and number to book.
-        if(currentVacancies - bedsTaken > 0) {
+        if(currentVacancies - bedsTaken > 0 && bookingHolder.get(0) == null) {
             //Updates the current amount of vacancies
-            //current.setVacancies(currentVacancies - bedsTaken);
+            current.setVacancies(currentVacancies - bedsTaken);
 
             //Updates the user's bedsTaken
             mDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(bedsTaken);
             //Updates the user's booking
-            mDatabase.child(currentUser.getUid()).child("booking").setValue(current.getKey());
-            DatabaseReference dbRef = database.getReference("/Shelter");
-            dbRef.child(current.getName()).child("vacancies").setValue(currentVacancies - bedsTaken);
+            mDatabase.child(currentUser.getUid()).child("booking").setValue(current);
 
-
-            Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
+            Intent b = new Intent(view.getContext(), ShelterActivity.class);
             startActivity(b);
         } else {
             alert.setText("This Shelter currently is full!");
         }
     }
+
+
 
     public void onCancel(View view) {
         //TODO: What happens when the reservation/booking is cancelled.

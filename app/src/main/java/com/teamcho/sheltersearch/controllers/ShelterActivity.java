@@ -139,7 +139,7 @@ public class ShelterActivity extends AppCompatActivity {
 
 
         /* The number of beds the user wants to reserve. */
-        int bedsTaken = Integer.parseInt(bookNumber.getText().toString());
+        bedsTaken += Integer.parseInt(bookNumber.getText().toString());
 
         //TODO: Fix the if statement in accordance with the user variable and number to book.
         if(currentVacancies - bedsTaken > 0) {

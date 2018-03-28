@@ -52,11 +52,6 @@ public class ShelterActivity extends AppCompatActivity {
     private int bedsTaken;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,10 +70,8 @@ public class ShelterActivity extends AppCompatActivity {
         vacancies = (TextView) findViewById(R.id.vacancies);
         bookNumber = (EditText) findViewById(R.id.bookNumber);
         alert = (TextView) findViewById(R.id.alert);
-
         book = (Button) findViewById(R.id.bookBed);
         cancel = (Button) findViewById(R.id.cancel);
-
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -94,7 +87,6 @@ public class ShelterActivity extends AppCompatActivity {
         vacancies.setText("Vacancies: " + current.getVacancies());
         longi.setText(Double.toString(current.getLongitude()));
         lat.setText(Double.toString(current.getLatitude()));
-
 
         //Gets the current Shelter
 
@@ -144,7 +136,7 @@ public class ShelterActivity extends AppCompatActivity {
 
     public void onBook(View view) {
 
-        
+
         /* The number of beds the user wants to reserve. */
         int bedsTaken = Integer.parseInt(bookNumber.getText().toString());
 
@@ -167,8 +159,6 @@ public class ShelterActivity extends AppCompatActivity {
             alert.setText("This Shelter currently is full!");
         }
     }
-
-
 
     public void onCancel(View view) {
         //TODO: What happens when the reservation/booking is cancelled.

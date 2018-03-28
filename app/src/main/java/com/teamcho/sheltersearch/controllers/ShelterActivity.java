@@ -121,6 +121,7 @@ public class ShelterActivity extends AppCompatActivity {
     }
 
     public void onBack (View view) {
+        Database.clearData();
         Database.loadData();
         Intent b = new Intent(view.getContext(), MainActivity.class);
         startActivity(b);

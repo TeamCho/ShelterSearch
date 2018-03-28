@@ -71,9 +71,9 @@ public class Database {
     }
 
     public static void clearData() {
-        shelterNameList = new ArrayList<>();
-        shelterList = new ArrayList<>();
-        userList = new ArrayList<>();
+        shelterNameList.clear();
+        shelterList.clear();
+        userList.clear();
     }
 
     public static ArrayList<String> getShelterNameList() {

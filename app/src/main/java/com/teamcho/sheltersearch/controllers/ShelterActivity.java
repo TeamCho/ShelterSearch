@@ -101,9 +101,10 @@ public class ShelterActivity extends AppCompatActivity {
         //mDatabase is the User Database
 
         mDatabase = database.getReference("/User");
-
+        user_Shelter = Integer.parseInt(mDatabase.child(currentUser.getUid()).child("booking").toString());
+        bedsTaken = Integer.parseInt(mDatabase.child(currentUser.getUid()).child("bedsTaken").toString());
         //Gets information about the current user.
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        /*mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> userList = dataSnapshot.getChildren();
@@ -119,12 +120,12 @@ public class ShelterActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
         if(currentVacancies == 0 || user_Shelter != Integer.MAX_VALUE) {
             book.setVisibility(View.GONE);
         }
 
-        if(user_Shelter == current.getKey()) {
+        if(user_Shelter != current.getKey()) {
             cancel.setVisibility(View.GONE);
         }
 
@@ -158,11 +159,24 @@ public class ShelterActivity extends AppCompatActivity {
             Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
             startActivity(b);
         } else {
-            alert.setText("This Shelter currently is full!");
+            alert.setText("You cannot make that booking.");
         }
     }
 
     public void onCancel(View view) {
         //TODO: What happens when the reservation/booking is cancelled.
+        try {
+            current.setVacancies(currentVacancies + bedsTaken);
+            dbRef = database.getReference("/Shelter");
+            dbRef.child(current.getKey() + "").child("vacancies").setValue(currentVacancies + bedsTaken);
+            //Updates the user's bedsTaken
+            mDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(0);
+            //Updates the user's booking
+            mDatabase.child(currentUser.getUid()).child("booking").setValue(Integer.MAX_VALUE);
+            Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
+            startActivity(b);
+        } catch (Exception e) {
+            alert.setText("Sorry, can't cancel reservation.");
+        }
     }
 }

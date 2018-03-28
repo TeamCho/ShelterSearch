@@ -22,7 +22,7 @@ public class Database {
     private static Map<String, String> userMap = new HashMap<String, String>(){{ put("admin", "pass123"); }};
     private static ArrayList<String> shelterNameList;
     private static ArrayList<Shelter> shelterList;
-    private static ArrayList<User> userList;
+    private static ArrayList<User> userList = new ArrayList<>();
 
 
     public static  void loadData() {

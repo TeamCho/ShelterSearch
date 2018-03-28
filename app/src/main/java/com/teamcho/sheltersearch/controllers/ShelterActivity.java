@@ -146,7 +146,7 @@ public class ShelterActivity extends AppCompatActivity {
             dbRef.child(current.getKey() + "").child("vacancies").setValue(currentVacancies - bedsTaken);
             Database.clearData();
             Database.loadData();
-            Intent b = new Intent(view.getContext(), MainActivity.class);
+            Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
             startActivity(b);
         } else {
             alert.setText("You cannot make that booking.");
@@ -165,7 +165,7 @@ public class ShelterActivity extends AppCompatActivity {
             mDatabase.child(currentUser.getUid()).child("booking").setValue(Integer.MAX_VALUE);
             Database.clearData();
             Database.loadData();
-            Intent b = new Intent(view.getContext(), MainActivity.class);
+            Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
             startActivity(b);
         } catch (Exception e) {
             alert.setText("Sorry, can't cancel reservation.");

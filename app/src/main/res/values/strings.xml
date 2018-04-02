@@ -5,4 +5,5 @@
         <item>Admin</item>
     </string-array>
     <string name="title_activity_shelter">ShelterActivity</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

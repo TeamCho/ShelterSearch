@@ -109,6 +109,75 @@ public class UserHomeScreenActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //Search for Map
+    public void onClickMapSearch(final View view) {
+        String searchText = searchData.getText().toString();
+        if (searchText.equals("Male")) {
+            for (Shelter s: allShelters) {
+                if (!s.getRestrictions().contains("Women")) {
+                    shelterList.add(s);
+                    shelterNameList.add(s.getName());
+                }
+            }
+        } else if (searchText.equals("Female")) {
+            for (Shelter s: allShelters) {
+                if (!s.getRestrictions().contains("Men")) {
+                    shelterList.add(s);
+                    shelterNameList.add(s.getName());
+                }
+            }
+        } else if (searchText.equals("Families w/ newborns")) {
+            for (Shelter s : allShelters) {
+                if (s.getRestrictions().equals("Families w/ newborns")) {
+                    shelterList.add(s);
+                    shelterNameList.add(s.getName());
+                }
+            }
+        } else if (searchText.contains("Families")) {
+            for (Shelter s : allShelters) {
+                if (s.getRestrictions().contains("Families w/ newborns")) {
+                    shelterList.add(s);
+                    shelterNameList.add(s.getName());
+                }
+            }
+        } else if (searchText.equals("Children")) {
+            for (Shelter s: allShelters) {
+                if (s.getRestrictions().contains("Children")) {
+                    shelterList.add(s);
+                    shelterNameList.add(s.getName());
+                }
+            }
+        } else if (searchText.equals("Young adults")) {
+            for (Shelter s: allShelters) {
+                if (s.getRestrictions().contains("Young adults")) {
+                    shelterList.add(s);
+                    shelterNameList.add(s.getName());
+                }
+            }
+        } else if (searchText.equals("Anyone")) {
+            for (Shelter s: allShelters) {
+                if (s.getRestrictions().contains("Anyone")) {
+                    shelterList.add(s);
+                    shelterNameList.add(s.getName());
+                }
+            }
+        } else {
+            for (Shelter s: allShelters) {
+                if (s.getName().equals(searchText)) {
+                    shelterList.add(s);
+                    shelterNameList.add(s.getName());
+                }
+            }
+        }
+        if (!shelterList.isEmpty()) {
+            Database.setShelterList(shelterList);
+            Database.setShelterNameList(shelterNameList);
+        }
+
+        Intent intent = new Intent(view.getContext(), MapsActivity.class);
+        startActivity(intent);
+    }
+
     public void onClickLogout(final View view) {
         mAuth.getInstance().signOut();
         Intent a = new Intent(view.getContext(), WelcomeActivity.class);

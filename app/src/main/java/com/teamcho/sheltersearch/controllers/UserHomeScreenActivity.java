@@ -67,7 +67,7 @@ public class UserHomeScreenActivity extends AppCompatActivity {
             }
         } else if (searchText.contains("Families")) {
             for (Shelter s : allShelters) {
-                if (s.getRestrictions().contains("Families w/ newborns")) {
+                if (s.getRestrictions().contains("Families")) {
                     shelterList.add(s);
                     shelterNameList.add(s.getName());
                 }

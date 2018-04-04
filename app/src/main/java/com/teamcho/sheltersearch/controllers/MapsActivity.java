@@ -1,5 +1,6 @@
 package com.teamcho.sheltersearch.controllers;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -75,5 +76,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng position = new LatLng(s.getLatitude(), s.getLongitude());
             mMap.addMarker(new MarkerOptions().position(position).title(s.getName()).snippet(s.getPhoneNum()));
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(MapsActivity.this, UserHomeScreenActivity.class);
+        startActivity(intent);
     }
 }

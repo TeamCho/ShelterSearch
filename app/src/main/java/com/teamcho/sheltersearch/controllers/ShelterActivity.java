@@ -127,6 +127,12 @@ public class ShelterActivity extends AppCompatActivity {
         startActivity(b);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ShelterActivity.this, UserHomeScreenActivity.class);
+        startActivity(intent);
+    }
+
     public void onBook(View view) {
 
 

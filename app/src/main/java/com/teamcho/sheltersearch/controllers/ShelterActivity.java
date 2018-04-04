@@ -130,8 +130,8 @@ public class ShelterActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Database.clearData();
-        Database.loadData();
+        localDb.clearData();
+        localDb.loadData();
         Intent intent = new Intent(ShelterActivity.this, UserHomeScreenActivity.class);
         startActivity(intent);
     }

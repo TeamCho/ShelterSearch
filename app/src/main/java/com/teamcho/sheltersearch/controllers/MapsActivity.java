@@ -39,6 +39,7 @@ import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private Database localDb = Database.getInstance();
     private GoogleMap mMap;
     ArrayList<Shelter> shelters;
 
@@ -65,7 +66,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        shelters = Database.getShelterList();
+        shelters = localDb.getShelterList();
 
         //move camera to Atlanta
         LatLng atlanta = new LatLng(33.75, -84.39);

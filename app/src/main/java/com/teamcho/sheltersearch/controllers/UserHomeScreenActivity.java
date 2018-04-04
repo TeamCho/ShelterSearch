@@ -17,13 +17,14 @@ import java.util.ArrayList;
 
 public class UserHomeScreenActivity extends AppCompatActivity {
 
+    private Database localDb = Database.getInstance();
     Button search;
     Button shelters;
     EditText searchData;
     private FirebaseAuth mAuth;
     ArrayList<Shelter> shelterList =  new ArrayList<Shelter>();
     ArrayList<String> shelterNameList = new ArrayList<String>();
-    ArrayList<Shelter> allShelters = Database.getShelterList();
+    ArrayList<Shelter> allShelters = localDb.getShelterList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,8 @@ public class UserHomeScreenActivity extends AppCompatActivity {
         shelters = (Button) findViewById(R.id.shelters);
         searchData = (EditText) findViewById(R.id.search_data);
         mAuth = FirebaseAuth.getInstance();
-        Database.clearData();
-        Database.loadData();
+        localDb.clearData();
+        localDb.loadData();
     }
 
     public void onClickShelters(final View view) {
@@ -102,8 +103,8 @@ public class UserHomeScreenActivity extends AppCompatActivity {
             }
         }
         if (!shelterList.isEmpty()) {
-            Database.setShelterList(shelterList);
-            Database.setShelterNameList(shelterNameList);
+            localDb.setShelterList(shelterList);
+            localDb.setShelterNameList(shelterNameList);
         }
         Intent intent = new Intent(view.getContext(), MainActivity.class);
         startActivity(intent);
@@ -170,8 +171,8 @@ public class UserHomeScreenActivity extends AppCompatActivity {
             }
         }
         if (!shelterList.isEmpty()) {
-            Database.setShelterList(shelterList);
-            Database.setShelterNameList(shelterNameList);
+            localDb.setShelterList(shelterList);
+            localDb.setShelterNameList(shelterNameList);
         }
 
         Intent intent = new Intent(view.getContext(), MapsActivity.class);

@@ -80,6 +80,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onBackPressed() {
+        Database.clearData();
+        Database.loadData();
         Intent intent = new Intent(MapsActivity.this, UserHomeScreenActivity.class);
         startActivity(intent);
     }

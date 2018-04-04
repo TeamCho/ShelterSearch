@@ -43,6 +43,7 @@ public class ShelterActivity extends AppCompatActivity {
     Button book;
     Button cancel;
 
+    private Database localDb = Database.getInstance();
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private DatabaseReference dbRef;
@@ -75,7 +76,7 @@ public class ShelterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        current = Database.getShelterList().get(pos);
+        current = localDb.getShelterList().get(pos);
 
         name.setText(current.getName());
         address.setText(current.getAddress());
@@ -100,7 +101,7 @@ public class ShelterActivity extends AppCompatActivity {
         //mDatabase is the User Database
         mDatabase = database.getReference("/User");
 
-        for (User user : Database.getUserList()) {
+        for (User user : localDb.getUserList()) {
             if (user.getUid().equals(currentUser.getUid())) {
                 user_Shelter = user.getBooking();
                 bedsTaken = user.getBedsTaken();
@@ -121,8 +122,8 @@ public class ShelterActivity extends AppCompatActivity {
     }
 
     public void onBack (View view) {
-        Database.clearData();
-        Database.loadData();
+        localDb.clearData();
+        localDb.loadData();
         Intent b = new Intent(view.getContext(), MainActivity.class);
         startActivity(b);
     }
@@ -152,8 +153,8 @@ public class ShelterActivity extends AppCompatActivity {
             mDatabase.child(currentUser.getUid()).child("booking").setValue(current.getKey());
             dbRef = database.getReference("/Shelter");
             dbRef.child(current.getKey() + "").child("vacancies").setValue(currentVacancies - bedsTaken);
-            Database.clearData();
-            Database.loadData();
+            localDb.clearData();
+            localDb.loadData();
             Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
             startActivity(b);
         } else {
@@ -171,8 +172,8 @@ public class ShelterActivity extends AppCompatActivity {
             mDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(0);
             //Updates the user's booking
             mDatabase.child(currentUser.getUid()).child("booking").setValue(Integer.MAX_VALUE);
-            Database.clearData();
-            Database.loadData();
+            localDb.clearData();
+            localDb.loadData();
             Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
             startActivity(b);
         } catch (Exception e) {

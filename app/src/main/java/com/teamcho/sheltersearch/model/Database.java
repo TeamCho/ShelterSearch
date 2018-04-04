@@ -11,21 +11,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Here to hold the map for usernames and passwords.
- * Also handles setting new usernames and passwords.
+ * A Singleton class to hold data downloaded from firebase.
  *
- * Created by lgpso on 2/13/2018.
+ * Created by Luis G. on 2/13/2018.
  */
 
 public class Database {
 
-    private static Map<String, String> userMap = new HashMap<String, String>(){{ put("admin", "pass123"); }};
-    private static ArrayList<String> shelterNameList = new ArrayList<>();
-    private static ArrayList<Shelter> shelterList = new ArrayList<>();
-    private static ArrayList<User> userList = new ArrayList<>();
+    private static Database db_instance = null;
+
+    private Database() {}
+
+    public static Database getInstance() {
+        if (db_instance == null)
+            db_instance = new Database();
+
+        return db_instance;
+    }
+
+    private Map<String, String> userMap = new HashMap<String, String>(){{ put("admin", "pass123"); }};
+    private ArrayList<String> shelterNameList = new ArrayList<>();
+    private ArrayList<Shelter> shelterList = new ArrayList<>();
+    private ArrayList<User> userList = new ArrayList<>();
 
 
-    public static  void loadData() {
+    public void loadData() {
         //shelterNameList = new ArrayList<>();
         //shelterList = new ArrayList<>();
         //userList = new ArrayList<>();
@@ -70,49 +80,49 @@ public class Database {
         });
     }
 
-    public static void clearData() {
+    public void clearData() {
         shelterNameList.clear();
         shelterList.clear();
         userList.clear();
     }
 
-    public static ArrayList<String> getShelterNameList() {
+    public ArrayList<String> getShelterNameList() {
         return shelterNameList;
     }
 
-    public static void setShelterNameList(ArrayList<String> shelterNameList) {
-        Database.shelterNameList = shelterNameList;
+    public void setShelterNameList(ArrayList<String> sNameList) {
+        shelterNameList = sNameList;
     }
 
-    public static ArrayList<Shelter> getShelterList() {
+    public ArrayList<Shelter> getShelterList() {
         return shelterList;
     }
 
-    public static void setShelterList(ArrayList<Shelter> shelterList) {
-        Database.shelterList = shelterList;
+    public void setShelterList(ArrayList<Shelter> sList) {
+        shelterList = sList;
     }
 
-    public static ArrayList<User> getUserList() {
+    public ArrayList<User> getUserList() {
         return userList;
     }
 
-    public static boolean contains(String name){
-        String stored = userMap.get(name);
-
-        if(stored != null){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static boolean newEntry(String username, String pass) {
-        userMap.put(username, pass);
-        return true;
-    }
-
-    public static String getPass(String username) {
-        return userMap.get(username);
-    }
+//    public boolean contains(String name){
+//        String stored = userMap.get(name);
+//
+//        if(stored != null){
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//
+//    public boolean newEntry(String username, String pass) {
+//        userMap.put(username, pass);
+//        return true;
+//    }
+//
+//    public String getPass(String username) {
+//        return userMap.get(username);
+//    }
 
 }

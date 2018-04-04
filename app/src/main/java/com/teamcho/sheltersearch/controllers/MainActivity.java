@@ -22,6 +22,7 @@ import com.teamcho.sheltersearch.model.Database;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Database database = Database.getInstance();
     Button logout;
     ListView listView;
     ArrayList<String> names;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         logout = (Button) findViewById(R.id.logout);
         mAuth = FirebaseAuth.getInstance();
 
-        names = Database.getShelterNameList();
+        names = database.getShelterNameList();
         listView = (ListView) findViewById(R.id.list);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, names);
         runOnUiThread(new Runnable() {
@@ -63,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBack(View view) {
-        Database.clearData();
-        Database.loadData();
+        database.clearData();
+        database.loadData();
         Intent intent = new Intent(view.getContext(), UserHomeScreenActivity.class);
         startActivity(intent);
     }

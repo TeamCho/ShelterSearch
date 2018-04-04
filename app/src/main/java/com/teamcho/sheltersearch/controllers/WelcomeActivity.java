@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public class WelcomeActivity extends AppCompatActivity {
 
+    Database localDb = Database.getInstance();
     Button login;
     Button register;
 
@@ -30,8 +31,8 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         setTitle("");
 
-        if (Database.getShelterList() == null && Database.getShelterNameList() == null) {
-            Database.loadData();
+        if (localDb.getShelterList() == null && localDb.getShelterNameList() == null) {
+            localDb.loadData();
         }
 
         login = (Button) findViewById(R.id.login);

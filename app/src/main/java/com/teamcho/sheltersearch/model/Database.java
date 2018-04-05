@@ -22,6 +22,10 @@ public class Database {
 
     private Database() {}
 
+    /**
+     * A method to get the database's singleton instance
+     * @return The Database object
+     */
     public static Database getInstance() {
         if (db_instance == null)
             db_instance = new Database();
@@ -29,16 +33,14 @@ public class Database {
         return db_instance;
     }
 
-    private Map<String, String> userMap = new HashMap<String, String>(){{ put("admin", "pass123"); }};
     private ArrayList<String> shelterNameList = new ArrayList<>();
     private ArrayList<Shelter> shelterList = new ArrayList<>();
     private ArrayList<User> userList = new ArrayList<>();
 
-
+    /**
+     * A method to load the data on firebase into the local database
+     */
     public void loadData() {
-        //shelterNameList = new ArrayList<>();
-        //shelterList = new ArrayList<>();
-        //userList = new ArrayList<>();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference dbRef = database.getReference("/Shelter");
         dbRef.addValueEventListener(new ValueEventListener() {
@@ -80,49 +82,54 @@ public class Database {
         });
     }
 
+    /**
+     * A method used to clear the local database's data
+     */
     public void clearData() {
         shelterNameList.clear();
         shelterList.clear();
         userList.clear();
     }
 
+    /**
+     * A method to get the list with all the shelters' names
+     * @return The array list with the shelter's names
+     */
     public ArrayList<String> getShelterNameList() {
         return shelterNameList;
     }
 
+    /**
+     * A method to set the database's list of names
+     * @param sNameList A list of shelter names
+     */
     public void setShelterNameList(ArrayList<String> sNameList) {
         shelterNameList = sNameList;
     }
 
+    /**
+     * A method to get the list of shelter's in the database
+     * @return The list of shelters
+     */
     public ArrayList<Shelter> getShelterList() {
         return shelterList;
     }
 
+    /**
+     * A method to update the list of shelters in the database
+     * @param sList The list of shelters
+     */
     public void setShelterList(ArrayList<Shelter> sList) {
         shelterList = sList;
     }
 
+    /**
+     * A method to get a list of user's in the database
+     * @return A list of User objects
+     */
     public ArrayList<User> getUserList() {
         return userList;
     }
 
-//    public boolean contains(String name){
-//        String stored = userMap.get(name);
-//
-//        if(stored != null){
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-//
-//    public boolean newEntry(String username, String pass) {
-//        userMap.put(username, pass);
-//        return true;
-//    }
-//
-//    public String getPass(String username) {
-//        return userMap.get(username);
-//    }
 
 }

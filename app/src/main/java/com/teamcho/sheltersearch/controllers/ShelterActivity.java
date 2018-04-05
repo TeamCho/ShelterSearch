@@ -139,24 +139,32 @@ public class ShelterActivity extends AppCompatActivity {
         /* The number of beds the user wants to reserve. */
         int bedsTaken = Integer.parseInt(bookNumber.getText().toString());
 
-        //TODO: Fix the if statement in accordance with the user variable and number to book.
-        if(currentVacancies - bedsTaken > 0) {
-            //Updates the current amount of vacancies
-            current.setVacancies(currentVacancies - bedsTaken);
-
-            //Updates the user's bedsTaken
-            mDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(bedsTaken);
-            //Updates the user's booking
-            mDatabase.child(currentUser.getUid()).child("booking").setValue(current.getKey());
-            dbRef = database.getReference("/Shelter");
-            dbRef.child(current.getKey() + "").child("vacancies").setValue(currentVacancies - bedsTaken);
-            Database.clearData();
-            Database.loadData();
+        try {
+            current.onBook(bedsTaken, mDatabase, currentUser);
             Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
             startActivity(b);
-        } else {
-            alert.setText("You cannot make that booking.");
+        } catch (IllegalArgumentException c) {
+            alert.setText(c.getMessage());
         }
+
+//        //TODO: Fix the if statement in accordance with the user variable and number to book.
+//        if(currentVacancies - bedsTaken > 0) {
+//            //Updates the current amount of vacancies
+//            current.setVacancies(currentVacancies - bedsTaken);
+//
+//            //Updates the user's bedsTaken
+//            mDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(bedsTaken);
+//            //Updates the user's booking
+//            mDatabase.child(currentUser.getUid()).child("booking").setValue(current.getKey());
+//            dbRef = database.getReference("/Shelter");
+//            dbRef.child(current.getKey() + "").child("vacancies").setValue(currentVacancies - bedsTaken);
+//            Database.clearData();
+//            Database.loadData();
+//            Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
+//            startActivity(b);
+//        } else {
+//            alert.setText("You cannot make that booking.");
+//        }
     }
 
     public void onCancel(View view) {

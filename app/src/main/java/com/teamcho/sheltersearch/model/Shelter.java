@@ -1,5 +1,10 @@
 package com.teamcho.sheltersearch.model;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.teamcho.sheltersearch.model.Database;
+
 /**
  *
  * Created by Luis
@@ -17,6 +22,8 @@ public class Shelter {
     private String notes;
     private int key;
     private int vacancies;
+
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     public Shelter() {
         
@@ -100,5 +107,23 @@ public class Shelter {
 
     public void setVacancies(int vacancies) {
         this.vacancies = vacancies;
+    }
+
+    public void onBook(int bedsTaken, DatabaseReference mDatabase, FirebaseUser currentUser) {
+        if (vacancies - bedsTaken < 0) {
+            throw new IllegalArgumentException("There are not enough beds to make this booking.");
+        }
+
+        //Updates the current amount of vacancies
+        this.setVacancies(vacancies - bedsTaken);
+
+        //Updates the user's bedsTaken
+        mDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(bedsTaken);
+        //Updates the user's booking
+        mDatabase.child(currentUser.getUid()).child("booking").setValue(this.getKey());
+        DatabaseReference dbRef = database.getReference("/Shelter");
+        dbRef.child(this.getKey() + "").child("vacancies").setValue(vacancies - bedsTaken);
+        Database.clearData();
+        Database.loadData();
     }
 }

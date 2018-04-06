@@ -59,8 +59,8 @@ public class RegisterActivity extends AppCompatActivity {
         setTitle("New User Registration");
 
         //User Type Spinner Setup
-        userTypeSpinner = findViewById(R.id.auth_level_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, UserType.values());
+        userTypeSpinner = (Spinner) findViewById(R.id.auth_level_spinner);
+        ArrayAdapter<UserType> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, UserType.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userTypeSpinner.setAdapter(adapter);
         userTypeSpinner.setSelection(0);
@@ -78,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
         email_address = email_entry.getText().toString();
         password = password_entry.getText().toString();
         user_name = name_entry.getText().toString();
-        final String userType = (String) userTypeSpinner.getSelectedItem();
+        final String userType = userTypeSpinner.getSelectedItem().toString();
 
 
         //Email is empty

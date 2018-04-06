@@ -3,11 +3,9 @@ package com.teamcho.sheltersearch.controllers;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.teamcho.sheltersearch.R;
@@ -21,19 +19,18 @@ public class UserHomeScreenActivity extends AppCompatActivity {
     Button search;
     Button shelters;
     EditText searchData;
-    private FirebaseAuth mAuth;
-    ArrayList<Shelter> shelterList =  new ArrayList<Shelter>();
-    ArrayList<String> shelterNameList = new ArrayList<String>();
+    ArrayList<Shelter> shelterList = new ArrayList<>();
+    ArrayList<String> shelterNameList = new ArrayList<>();
     ArrayList<Shelter> allShelters = localDb.getShelterList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home_screen);
-        search = (Button) findViewById(R.id.search_bttn);
-        shelters = (Button) findViewById(R.id.shelters);
-        searchData = (EditText) findViewById(R.id.search_data);
-        mAuth = FirebaseAuth.getInstance();
+        search = findViewById(R.id.search_bttn);
+        shelters = findViewById(R.id.shelters);
+        searchData = findViewById(R.id.search_data);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         localDb.clearData();
         localDb.loadData();
     }
@@ -180,7 +177,7 @@ public class UserHomeScreenActivity extends AppCompatActivity {
     }
 
     public void onClickLogout(final View view) {
-        mAuth.getInstance().signOut();
+        FirebaseAuth.getInstance().signOut();
         Intent a = new Intent(view.getContext(), WelcomeActivity.class);
         startActivity(a);
     }

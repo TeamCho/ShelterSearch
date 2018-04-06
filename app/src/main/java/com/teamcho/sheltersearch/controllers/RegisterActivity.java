@@ -37,7 +37,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private String email_address;
     private String user_name;
-    private String password;
 
     private User newUser;
 
@@ -50,16 +49,16 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        cancelButton = (Button) findViewById(R.id.cancel_button);
-        registerButton = (Button) findViewById(R.id.register_button);
-        email_entry = (EditText) findViewById(R.id.email_entry);
-        password_entry = (EditText) findViewById(R.id.password_entry);
-        alert = (TextView) findViewById(R.id.alert);
-        name_entry = (EditText) findViewById(R.id.u_name);
+        cancelButton = findViewById(R.id.cancel_button);
+        registerButton = findViewById(R.id.register_button);
+        email_entry = findViewById(R.id.email_entry);
+        password_entry = findViewById(R.id.password_entry);
+        alert = findViewById(R.id.alert);
+        name_entry = findViewById(R.id.u_name);
         setTitle("New User Registration");
 
         //User Type Spinner Setup
-        userTypeSpinner = (Spinner) findViewById(R.id.auth_level_spinner);
+        userTypeSpinner = findViewById(R.id.auth_level_spinner);
         ArrayAdapter<UserType> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, UserType.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userTypeSpinner.setAdapter(adapter);
@@ -76,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void onClickRegister(final View view) {
         email_address = email_entry.getText().toString();
-        password = password_entry.getText().toString();
+        String password = password_entry.getText().toString();
         user_name = name_entry.getText().toString();
         final String userType = userTypeSpinner.getSelectedItem().toString();
 

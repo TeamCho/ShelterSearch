@@ -1,13 +1,11 @@
 package com.teamcho.sheltersearch.model;
 
-import android.content.Intent;
-import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.teamcho.sheltersearch.controllers.UserHomeScreenActivity;
+
+import java.util.Objects;
 
 /**
  * A class to hold the information for each individual shelter
@@ -46,10 +44,11 @@ public class Shelter {
             FirebaseUser currentUser = mAuth.getCurrentUser();
 
             //Updates the user's bedsTaken
-            userDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(beds);
+            userDatabase.child(Objects.requireNonNull(currentUser).getUid()).child("bedsTaken").setValue(beds);
 
             //Updates the user's booking
             currentUser = mAuth.getCurrentUser();
+            assert currentUser != null;
             userDatabase.child(currentUser.getUid()).child("booking").setValue(getKey());
             shelterDB.child(getKey() + "").child("vacancies").setValue(vacancies - beds);
             return true;
@@ -59,7 +58,7 @@ public class Shelter {
 
     }
 
-    public void cancelReservation(int beds) throws Exception {
+    public void cancelReservation(int beds) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference userDatabase  = database.getReference("/User");
@@ -69,6 +68,7 @@ public class Shelter {
         setVacancies(vacancies + beds);
         shelterDB.child(getKey() + "").child("vacancies").setValue(vacancies + beds);
         //Updates the user's bedsTaken
+        assert currentUser != null;
         userDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(0);
         //Updates the user's booking
         userDatabase.child(currentUser.getUid()).child("booking").setValue(Integer.MAX_VALUE);

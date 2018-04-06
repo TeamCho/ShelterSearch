@@ -1,7 +1,6 @@
 package com.teamcho.sheltersearch.controllers;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.AuthResult;
@@ -28,9 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     Button cancel;
     TextView alert;
 
-    private String email;
-    private String pass;
-
     private FirebaseAuth mAuth;
 
     @Override
@@ -41,11 +36,11 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        cancel = (Button) findViewById(R.id.cancel);
-        login = (Button) findViewById(R.id.login);
-        username = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
-        alert = (TextView) findViewById(R.id.alert);
+        cancel = findViewById(R.id.cancel);
+        login = findViewById(R.id.login);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+        alert = findViewById(R.id.alert);
 
     }
 
@@ -55,8 +50,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onClickLogin(final View view) {
-        email = username.getText().toString();
-        pass = password.getText().toString();
+        String email = username.getText().toString();
+        String pass = password.getText().toString();
 
         mAuth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

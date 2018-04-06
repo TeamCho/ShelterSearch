@@ -12,8 +12,6 @@ import java.util.ArrayList;
 
 //import com.google.firebase.database.DataSnapshot;
 //import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.auth.FirebaseAuth;
 //import com.google.firebase.database.ValueEventListener;
 import com.teamcho.sheltersearch.R;
@@ -27,17 +25,16 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     ArrayList<String> names;
     ArrayAdapter<String> adapter;
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        logout = (Button) findViewById(R.id.logout);
-        mAuth = FirebaseAuth.getInstance();
+        logout = findViewById(R.id.logout);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         names = localDb.getShelterNameList();
-        listView = (ListView) findViewById(R.id.list);
+        listView = findViewById(R.id.list);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, names);
         runOnUiThread(new Runnable() {
             public void run() {
@@ -58,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickLogout(View view) {
-        mAuth.getInstance().signOut();
+        FirebaseAuth.getInstance().signOut();
         Intent a = new Intent(view.getContext(), WelcomeActivity.class);
         startActivity(a);
     }

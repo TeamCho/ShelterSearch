@@ -79,13 +79,9 @@ public class ShelterActivity extends AppCompatActivity {
         //The current user
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        for (User user : localDb.getUserList()) {
-            if (user.getUid().equals(currentUser.getUid())) {
-                user_Shelter = user.getBooking();
-                bedsTaken = user.getBedsTaken();
-                break;
-            }
-        }
+        User user = localDb.getUserList().get(currentUser.getUid());
+        user_Shelter = user.getBooking();
+        bedsTaken = user.getBedsTaken();
 
         if(currentVacancies == 0 || user_Shelter != Integer.MAX_VALUE) {
             book.setVisibility(View.GONE);

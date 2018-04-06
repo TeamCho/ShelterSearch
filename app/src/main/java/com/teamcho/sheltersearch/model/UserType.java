@@ -19,11 +19,8 @@ public enum UserType {
         this.type = type;
     }
 
-    /**
-     * A method to get the type of user
-     * @return The user type
-     */
-    public String getUserType() {
-        return this.type;
+    @Override
+    public String toString() {
+        return type;
     }
 }

@@ -1,5 +1,14 @@
 package com.teamcho.sheltersearch.model;
 
+import android.content.Intent;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.teamcho.sheltersearch.controllers.UserHomeScreenActivity;
+
 /**
  * A class to hold the information for each individual shelter
  * Created by Luis
@@ -21,7 +30,48 @@ public class Shelter {
      *  Standard constructor for a new Shelter
      */
     public Shelter() {
-        
+
+    }
+
+    public boolean bookBed (int beds) {
+        //TODO: Fix the if statement in accordance with the user variable and number to book.
+        if(vacancies - beds > 0) {
+            //Updates the current amount of vacancies
+            setVacancies(vacancies - beds);
+
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference userDatabase  = database.getReference("/User");
+            DatabaseReference shelterDB = database.getReference("/Shelter");
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+
+            //Updates the user's bedsTaken
+            userDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(beds);
+
+            //Updates the user's booking
+            currentUser = mAuth.getCurrentUser();
+            userDatabase.child(currentUser.getUid()).child("booking").setValue(getKey());
+            shelterDB.child(getKey() + "").child("vacancies").setValue(vacancies - beds);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public void cancelReservation(int beds) throws Exception {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userDatabase  = database.getReference("/User");
+        DatabaseReference shelterDB = database.getReference("/Shelter");
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        setVacancies(vacancies + beds);
+        shelterDB.child(getKey() + "").child("vacancies").setValue(vacancies + beds);
+        //Updates the user's bedsTaken
+        userDatabase.child(currentUser.getUid()).child("bedsTaken").setValue(0);
+        //Updates the user's booking
+        userDatabase.child(currentUser.getUid()).child("booking").setValue(Integer.MAX_VALUE);
     }
 
     /**

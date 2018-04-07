@@ -79,46 +79,48 @@ public class RegisterActivity extends AppCompatActivity {
         user_name = name_entry.getText().toString();
         final String userType = userTypeSpinner.getSelectedItem().toString();
 
+        String status = checkRegisterParams(user_name, password, email_address);
 
-        //Email is empty
-        if(TextUtils.isEmpty(email_address)) {
-            alert.setText("Email is missing!");
-            return;
-        }
-        // Username is empty
-        if(TextUtils.isEmpty(user_name)) {
-            alert.setText("Name is empty!");
-            return;
-        }
-        // Password is empty
-        if(TextUtils.isEmpty(password)) {
-            alert.setText("Password is missing!");
-            return;
-        }
-        // Password is less than 6 characters
-        if(TextUtils.getTrimmedLength(password) < 6) {
-            alert.setText("Password is less than 6 characters!");
-            return;
-        }
+        if (status.equals("register")) {
+            mAuth.createUserWithEmailAndPassword(email_address, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                FirebaseUser currentUser = mAuth.getCurrentUser();
+                                newUser = new User(currentUser.getUid(), email_address, user_name, userType,Integer.MAX_VALUE,0);
+                                mDatabase.child("User").child(currentUser.getUid()).setValue(newUser);
+                                Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
+                                startActivity(b);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                alert.setText("Unable to create that user!");
+                            }
 
-        mAuth.createUserWithEmailAndPassword(email_address, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser currentUser = mAuth.getCurrentUser();
-                            newUser = new User(currentUser.getUid(), email_address, user_name, userType,Integer.MAX_VALUE,0);
-                            mDatabase.child("User").child(currentUser.getUid()).setValue(newUser);
-                            Intent b = new Intent(view.getContext(), UserHomeScreenActivity.class);
-                            startActivity(b);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            alert.setText("Unable to create that user!");
+                            // ...
                         }
+                    });
+        } else {
+            alert.setText(status);
+        }
+    }
 
-                        // ...
-                    }
-                });
+    public String checkRegisterParams(String username, String password, String email) {
+        //Email is empty
+        if(email.equals("")) {
+            return "Email is missing!";
+        } else if(username.equals("")) {
+            // Username is empty
+            return "Name is empty!";
+        } else if(password.equals("")) {
+            // Password is empty
+            return "Password is missing!";
+        } else if(password.length() < 6) {
+            // Password is less than 6 characters
+            return "Password is less than 6 characters!";
+        }
+
+        return "register";
     }
 }

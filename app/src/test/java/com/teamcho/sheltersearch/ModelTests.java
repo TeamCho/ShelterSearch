@@ -2,6 +2,7 @@ package com.teamcho.sheltersearch;
 
 import com.google.firebase.database.DatabaseReference;
 import com.teamcho.sheltersearch.controllers.LoginActivity;
+import com.teamcho.sheltersearch.controllers.UserHomeScreenActivity;
 import com.teamcho.sheltersearch.model.Database;
 import com.teamcho.sheltersearch.controllers.RegisterActivity;
 
@@ -10,6 +11,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.Mockito;
+
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -77,6 +80,18 @@ public class ModelTests {
         assertEquals(noPass, false);
         assertEquals(noBoth, false);
         assertEquals(bothRight, true);
+    }
+
+    @Test
+    public void testSearchParams() {
+        UserHomeScreenActivity a = new UserHomeScreenActivity();
+        String men = "Male";
+        String families = "Families";
+        String wrong = "nothing";
+
+        assertEquals(a.checkSearchParam(men), true);
+        assertEquals(a.checkSearchParam(families), true);
+        assertEquals(a.checkSearchParam(wrong), false);
     }
 
     @Test

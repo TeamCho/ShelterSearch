@@ -1,6 +1,7 @@
 package com.teamcho.sheltersearch;
 
 import com.google.firebase.database.DatabaseReference;
+import com.teamcho.sheltersearch.controllers.LoginActivity;
 import com.teamcho.sheltersearch.model.Database;
 import com.teamcho.sheltersearch.controllers.RegisterActivity;
 
@@ -28,7 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 @PowerMockRunnerDelegate(JUnit4.class)
 @PrepareForTest({FirebaseDatabase.class})
 public class ModelTests {
-
+    /*
     @Before
     public void setUp() {
         DatabaseReference mockedDBRef = Mockito.mock(DatabaseReference.class);
@@ -38,8 +39,9 @@ public class ModelTests {
         when(FirebaseDatabase.getInstance()).thenReturn(mockedDB);
         Database db = Database.getInstance();
         db.loadData();
-    }
+    }*/
 
+    //Luis's JUnit
     @Test
     public void testRegister() {
         RegisterActivity reg = new RegisterActivity();
@@ -60,6 +62,21 @@ public class ModelTests {
         // Test if everything correct returns right message
         assertEquals(testCorrect, "register");
 
+    }
+
+    //Hemanth's JUnit
+    @Test
+    public void testLogin() {
+        LoginActivity log = new LoginActivity();
+        boolean noUser = log.checkEmailAndPass("", "1234");
+        boolean noPass = log.checkEmailAndPass("cho@gmail.com", "");
+        boolean noBoth = log.checkEmailAndPass("","");
+        boolean bothRight = log.checkEmailAndPass("cho@gmail.com", "1234");
+
+        assertEquals(noUser, false);
+        assertEquals(noPass, false);
+        assertEquals(noBoth, false);
+        assertEquals(bothRight, true);
     }
 
     @Test

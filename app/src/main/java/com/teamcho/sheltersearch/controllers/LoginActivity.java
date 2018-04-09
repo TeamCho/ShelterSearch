@@ -52,7 +52,9 @@ public class LoginActivity extends AppCompatActivity {
     public void onClickLogin(final View view) {
         String email = username.getText().toString();
         String pass = password.getText().toString();
-
+        if (!checkEmailAndPass(email, pass)) {
+            alert.setText("Login Failed!");
+        }
         mAuth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -67,6 +69,13 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public boolean checkEmailAndPass(String email, String pass) {
+        if (email.isEmpty() || pass.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
 

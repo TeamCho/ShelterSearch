@@ -41,7 +41,16 @@ public class UserHomeScreenActivity extends AppCompatActivity {
     }
 
     public void onClickSearch(final View view) {
+
         String searchText = searchData.getText().toString();
+        boolean validSearch = checkSearchParam(searchText);
+
+        if (validSearch) {
+            System.out.println("This search is valid");
+        } else {
+            System.out.println("The search is invalid");
+        }
+
         if (searchText.equals("Male")) {
             for (Shelter s: allShelters) {
                 if (!s.getRestrictions().contains("Women")) {
@@ -180,5 +189,20 @@ public class UserHomeScreenActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         Intent a = new Intent(view.getContext(), WelcomeActivity.class);
         startActivity(a);
+    }
+
+    public boolean checkSearchParam(String search) {
+        ArrayList<String> validSearch = new ArrayList<String>();
+        validSearch.add("Male");
+        validSearch.add("Female");
+        validSearch.add("Women");
+        validSearch.add("Families w/ newborns");
+        validSearch.add("Families");
+        validSearch.add("Children");
+        validSearch.add("Young adults");
+        validSearch.add("Anyone");
+
+        return validSearch.contains(search);
+
     }
 }

@@ -1,6 +1,7 @@
 package com.teamcho.sheltersearch;
 
 import com.google.firebase.database.DatabaseReference;
+import com.teamcho.sheltersearch.controllers.UserHomeScreenActivity;
 import com.teamcho.sheltersearch.model.Database;
 import com.teamcho.sheltersearch.controllers.RegisterActivity;
 
@@ -9,6 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.Mockito;
+
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -29,16 +32,16 @@ import com.google.firebase.database.FirebaseDatabase;
 @PrepareForTest({FirebaseDatabase.class})
 public class ModelTests {
 
-    @Before
-    public void setUp() {
-        DatabaseReference mockedDBRef = Mockito.mock(DatabaseReference.class);
-        FirebaseDatabase mockedDB = Mockito.mock(FirebaseDatabase.class);
-        when(mockedDB.getReference()).thenReturn(mockedDBRef);
-        PowerMockito.mockStatic(FirebaseDatabase.class);
-        when(FirebaseDatabase.getInstance()).thenReturn(mockedDB);
-        Database db = Database.getInstance();
-        db.loadData();
-    }
+//    @Before
+//    public void setUp() {
+//        DatabaseReference mockedDBRef = Mockito.mock(DatabaseReference.class);
+//        FirebaseDatabase mockedDB = Mockito.mock(FirebaseDatabase.class);
+//        when(mockedDB.getReference()).thenReturn(mockedDBRef);
+//        PowerMockito.mockStatic(FirebaseDatabase.class);
+//        when(FirebaseDatabase.getInstance()).thenReturn(mockedDB);
+//        Database db = Database.getInstance();
+//        db.loadData();
+//    }
 
     @Test
     public void testRegister() {
@@ -60,6 +63,18 @@ public class ModelTests {
         // Test if everything correct returns right message
         assertEquals(testCorrect, "register");
 
+    }
+
+    @Test
+    public void testSearchParams() {
+        UserHomeScreenActivity a = new UserHomeScreenActivity();
+        String men = "Male";
+        String families = "Families";
+        String wrong = "nothing";
+
+        assertEquals(a.checkSearchParam(men), true);
+        assertEquals(a.checkSearchParam(families), true);
+        assertEquals(a.checkSearchParam(wrong), false);
     }
 
     @Test

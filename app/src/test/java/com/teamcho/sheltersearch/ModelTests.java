@@ -2,6 +2,7 @@ package com.teamcho.sheltersearch;
 
 import com.google.firebase.database.DatabaseReference;
 import com.teamcho.sheltersearch.controllers.LoginActivity;
+import com.teamcho.sheltersearch.controllers.ShelterActivity;
 import com.teamcho.sheltersearch.controllers.UserHomeScreenActivity;
 import com.teamcho.sheltersearch.model.Database;
 import com.teamcho.sheltersearch.controllers.RegisterActivity;
@@ -22,6 +23,7 @@ import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 import static org.junit.Assert.assertEquals;
 
 import com.google.firebase.database.FirebaseDatabase;
+import com.teamcho.sheltersearch.model.Shelter;
 
 /**
  * Contains a set of JUnit tests to test the functionality of the database model class.
@@ -92,6 +94,16 @@ public class ModelTests {
         assertEquals(a.checkSearchParam(men), true);
         assertEquals(a.checkSearchParam(families), true);
         assertEquals(a.checkSearchParam(wrong), false);
+    }
+
+    @Test
+    public void testOnBook() {
+        Shelter shelter = new Shelter();
+        int numVacancies = 2;
+        int numToBook = 3;
+
+        shelter.setVacancies(numVacancies);
+        assertEquals(shelter.bookBed(numToBook), false);
     }
 
     @Test

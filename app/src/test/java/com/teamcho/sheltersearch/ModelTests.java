@@ -84,6 +84,7 @@ public class ModelTests {
         assertEquals(bothRight, true);
     }
 
+    //Varun's JUnit
     @Test
     public void testSearchParams() {
         UserHomeScreenActivity a = new UserHomeScreenActivity();
@@ -96,6 +97,7 @@ public class ModelTests {
         assertEquals(a.checkSearchParam(wrong), false);
     }
 
+    //Rahul's JUnit
     @Test
     public void testOnBook() {
         Shelter shelter = new Shelter();
@@ -104,6 +106,23 @@ public class ModelTests {
 
         shelter.setVacancies(numVacancies);
         assertEquals(shelter.bookBed(numToBook), false);
+    }
+
+    //Austin's JUnit
+    @Test
+    public void testMapSearchParams() {
+        UserHomeScreenActivity b = new UserHomeScreenActivity();
+        String female = "Female";
+        String children = "Children";
+        String youngadults = "Young Adults";
+        String anyone = "Anyone";
+        String blank = "";
+
+        assertEquals(b.checkSearchParam(female), true);
+        assertEquals(b.checkSearchParam(children), true);
+        assertEquals(b.checkSearchParam(youngadults), true);
+        assertEquals(b.checkSearchParam(anyone), true);
+        assertEquals(b.checkSearchParam(blank), false);
     }
 
     @Test

@@ -35,11 +35,21 @@ public class UserHomeScreenActivity extends AppCompatActivity {
         localDb.loadData();
     }
 
+    /**
+     * Enters the shelter activity for the corresponding shelter that
+     * is clicked on.
+     * @param view
+     */
     public void onClickShelters(final View view) {
         Intent intent = new Intent(view.getContext(), MainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Searches for shelters that match certain keywords and displays
+     * the resulting shelters in a listview.
+     * @param view
+     */
     public void onClickSearch(final View view) {
 
         String searchText = searchData.getText().toString();
@@ -116,9 +126,16 @@ public class UserHomeScreenActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Searches the for shelters that match certain keywords and displays the
+     * results on Google Maps.
+     * @param view
+     */
     //Search for Map
     public void onClickMapSearch(final View view) {
         String searchText = searchData.getText().toString();
+        //boolean validSearch = checkSearchParam(searchText);
+
         if (searchText.equals("Male")) {
             for (Shelter s: allShelters) {
                 if (!s.getRestrictions().contains("Women")) {
@@ -185,12 +202,22 @@ public class UserHomeScreenActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Logs the user out of the application.
+     * @param view
+     */
     public void onClickLogout(final View view) {
         FirebaseAuth.getInstance().signOut();
         Intent a = new Intent(view.getContext(), WelcomeActivity.class);
         startActivity(a);
     }
 
+    /**
+     * Checks if the search contains any of the keywords.
+     * @param search
+     * @return Returns a boolean of whether or not
+     * the search parameters contain any of the keywords.
+     */
     public boolean checkSearchParam(String search) {
         ArrayList<String> validSearch = new ArrayList<String>();
         validSearch.add("Male");

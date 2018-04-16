@@ -68,11 +68,19 @@ public class RegisterActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
+    /**
+     * Cancels the registration.
+     * @param view
+     */
     public void onClickCancel(View view) {
         Intent back = new Intent(view.getContext(), WelcomeActivity.class);
         startActivity(back);
     }
 
+    /**
+     * Registers a new user and logs in to application.
+     * @param view
+     */
     public void onClickRegister(final View view) {
         email_address = email_entry.getText().toString();
         String password = password_entry.getText().toString();
@@ -106,6 +114,14 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Checks if the registration parameters are all valid.
+     * @param username
+     * @param password
+     * @param email
+     * @return Returns a String corresponding to what parameters are
+     * missing or if the registration parameters are all correct.
+     */
     public String checkRegisterParams(String username, String password, String email) {
         //Email is empty
         if(email.equals("")) {

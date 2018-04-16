@@ -54,12 +54,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Logs the user into the application.
+     * @param view
+     */
     public void onClickLogout(View view) {
         FirebaseAuth.getInstance().signOut();
         Intent a = new Intent(view.getContext(), WelcomeActivity.class);
         startActivity(a);
     }
 
+    /**
+     * Goes back to the user home screen.
+     * @param view
+     */
     public void onBack(View view) {
         localDb.clearData();
         localDb.loadData();

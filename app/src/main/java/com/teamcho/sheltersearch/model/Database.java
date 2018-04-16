@@ -33,7 +33,7 @@ public class Database {
     }
 
     private ArrayList<String> shelterNameList = new ArrayList<>();
-    private ArrayList<Shelter> shelterList = new ArrayList<>();
+    private ArrayList<Shelter> shelterList = new ArrayList<Shelter>();
     private HashMap<String, User> userList = new HashMap<>();
 
     /**

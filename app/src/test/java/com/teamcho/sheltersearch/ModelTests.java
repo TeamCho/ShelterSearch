@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.Mockito;
 
+import com.teamcho.sheltersearch.model.Database;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 import org.powermock.api.mockito.PowerMockito;
@@ -24,6 +25,8 @@ import static org.junit.Assert.assertEquals;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.teamcho.sheltersearch.model.Shelter;
+
+import java.util.ArrayList;
 
 /**
  * Contains a set of JUnit tests to test the functionality of the database model class.
@@ -103,9 +106,19 @@ public class ModelTests {
         Shelter shelter = new Shelter();
         int numVacancies = 2;
         int numToBook = 3;
+        Database localDb = Database.getInstance();
 
+        shelter.setName("Test");
         shelter.setVacancies(numVacancies);
         assertEquals(shelter.bookBed(numToBook), false);
+        shelter.setVacancies(numVacancies + 1);
+        shelter.bookBed(numToBook);
+        ArrayList<Shelter> shelterList = localDb.getShelterList();
+        for (int i = 0; i < shelterList.size(); i++) {
+            if (shelterList.get(i) == shelter) {
+                assertEquals(shelterList.get(i).getVacancies(), 0);
+            }
+        }
     }
 
     //Austin's JUnit

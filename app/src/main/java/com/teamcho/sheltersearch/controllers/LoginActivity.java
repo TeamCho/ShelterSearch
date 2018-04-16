@@ -20,11 +20,9 @@ public class LoginActivity extends AppCompatActivity {
 
     //Database backend;
 
-    EditText username;
-    EditText password;
-    Button login;
-    Button cancel;
-    TextView alert;
+    private EditText username;
+    private EditText password;
+    private TextView alert;
 
     private FirebaseAuth mAuth;
 
@@ -36,8 +34,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        cancel = findViewById(R.id.cancel);
-        login = findViewById(R.id.login);
+        Button cancel = findViewById(R.id.cancel);
+        Button login = findViewById(R.id.login);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         alert = findViewById(R.id.alert);
@@ -46,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Cancels the login.
-     * @param view
+     * @param view the current view
      */
     public void onClickCancel(View view) {
         Intent back = new Intent(view.getContext(), WelcomeActivity.class);
@@ -55,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Logs the user into the application.
-     * @param view
+     * @param view the current view
      */
     public void onClickLogin(final View view) {
         String email = username.getText().toString();
@@ -80,10 +78,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public boolean checkEmailAndPass(String email, String pass) {
-        if (email.isEmpty() || pass.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !email.isEmpty() && !pass.isEmpty();
     }
 
 

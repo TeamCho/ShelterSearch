@@ -15,47 +15,36 @@ import com.teamcho.sheltersearch.model.Database;
 import com.teamcho.sheltersearch.model.Shelter;
 import com.teamcho.sheltersearch.model.User;
 
+import java.util.Objects;
+
 public class ShelterActivity extends AppCompatActivity {
 
-    Button back;
-    TextView name;
-    TextView address;
-    TextView capacity;
-    TextView phoneNum;
-    TextView restrictions;
-    TextView notes;
-    TextView longi;
-    TextView lat;
-    TextView vacancies;
-    EditText bookNumber;
-    TextView alert;
-    Button book;
-    Button cancel;
+    private EditText bookNumber;
+    private TextView alert;
 
-    private Database localDb = Database.getInstance();
+    private final Database localDb = Database.getInstance();
     private Shelter current;
-    int user_Shelter;
-    int bedsTaken;
+    private int bedsTaken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter);
         int pos = getIntent().getIntExtra("pos", 0);
-        back = findViewById(R.id.back);
-        name = findViewById(R.id.name);
-        address = findViewById(R.id.address);
-        capacity = findViewById(R.id.capacity);
-        phoneNum = findViewById(R.id.phoneNum);
-        restrictions = findViewById(R.id.restrictions);
-        notes = findViewById(R.id.notes);
-        longi = findViewById(R.id.longi);
-        lat = findViewById(R.id.lat);
-        vacancies = findViewById(R.id.vacancies);
+        Button back = findViewById(R.id.back);
+        TextView name = findViewById(R.id.name);
+        TextView address = findViewById(R.id.address);
+        TextView capacity = findViewById(R.id.capacity);
+        TextView phoneNum = findViewById(R.id.phoneNum);
+        TextView restrictions = findViewById(R.id.restrictions);
+        TextView notes = findViewById(R.id.notes);
+        TextView longi = findViewById(R.id.longi);
+        TextView lat = findViewById(R.id.lat);
+        TextView vacancies = findViewById(R.id.vacancies);
         bookNumber = findViewById(R.id.bookNumber);
         alert = findViewById(R.id.alert);
-        book = findViewById(R.id.bookBed);
-        cancel = findViewById(R.id.cancelRes);
+        Button book = findViewById(R.id.bookBed);
+        Button cancel = findViewById(R.id.cancelRes);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         current = localDb.getShelterList().get(pos);
@@ -79,8 +68,8 @@ public class ShelterActivity extends AppCompatActivity {
         //The current user
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        User user = localDb.getUserList().get(currentUser.getUid());
-        user_Shelter = user.getBooking();
+        User user = localDb.getUserList().get(Objects.requireNonNull(currentUser).getUid());
+        int user_Shelter = user.getBooking();
         bedsTaken = user.getBedsTaken();
 
         if(currentVacancies == 0 || user_Shelter != Integer.MAX_VALUE) {
@@ -95,7 +84,7 @@ public class ShelterActivity extends AppCompatActivity {
 
     /**
      * Goes back to the main activity screen.
-     * @param view
+     * @param view the current view
      */
     public void onBack (View view) {
         localDb.clearData();
@@ -114,7 +103,7 @@ public class ShelterActivity extends AppCompatActivity {
 
     /**
      * Books a given number of beds for the current shelter.
-     * @param view
+     * @param view the current view
      */
     public void onBook(View view) {
 
@@ -135,7 +124,7 @@ public class ShelterActivity extends AppCompatActivity {
 
     /**
      * Cancels the booking/reservation for the current shelter.
-     * @param view
+     * @param view the current view
      */
     public void onCancel(View view) {
         //TODO: What happens when the reservation/booking is cancelled.

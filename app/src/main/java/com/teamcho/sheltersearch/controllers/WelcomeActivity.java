@@ -31,11 +31,19 @@ public class WelcomeActivity extends AppCompatActivity {
         register = findViewById(R.id.register);
     }
 
+    /**
+     * Goes to the login screen.
+     * @param view
+     */
     public void onClickLogin(View view) {
         Intent a = new Intent(view.getContext(), LoginActivity.class);
         startActivity(a);
     }
 
+    /**
+     * Goes to the registration screen.
+     * @param view
+     */
     public void onClickRegister(View view) {
         Intent b = new Intent(view.getContext(), RegisterActivity.class);
         startActivity(b);

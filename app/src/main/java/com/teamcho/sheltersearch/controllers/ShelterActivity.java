@@ -93,6 +93,10 @@ public class ShelterActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Goes back to the main activity screen.
+     * @param view
+     */
     public void onBack (View view) {
         localDb.clearData();
         localDb.loadData();
@@ -108,6 +112,10 @@ public class ShelterActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Books a given number of beds for the current shelter.
+     * @param view
+     */
     public void onBook(View view) {
 
         /* The number of beds the user wants to reserve. */
@@ -125,6 +133,10 @@ public class ShelterActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Cancels the booking/reservation for the current shelter.
+     * @param view
+     */
     public void onCancel(View view) {
         //TODO: What happens when the reservation/booking is cancelled.
         try {

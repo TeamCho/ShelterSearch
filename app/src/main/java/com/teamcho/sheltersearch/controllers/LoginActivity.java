@@ -44,11 +44,19 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Cancels the login.
+     * @param view
+     */
     public void onClickCancel(View view) {
         Intent back = new Intent(view.getContext(), WelcomeActivity.class);
         startActivity(back);
     }
 
+    /**
+     * Logs the user into the application.
+     * @param view
+     */
     public void onClickLogin(final View view) {
         String email = username.getText().toString();
         String pass = password.getText().toString();

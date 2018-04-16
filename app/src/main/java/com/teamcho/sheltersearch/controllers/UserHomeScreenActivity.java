@@ -15,20 +15,18 @@ import java.util.ArrayList;
 
 public class UserHomeScreenActivity extends AppCompatActivity {
 
-    private Database localDb = Database.getInstance();
-    Button search;
-    Button shelters;
-    EditText searchData;
-    ArrayList<Shelter> shelterList = new ArrayList<>();
-    ArrayList<String> shelterNameList = new ArrayList<>();
-    ArrayList<Shelter> allShelters = localDb.getShelterList();
+    private final Database localDb = Database.getInstance();
+    private EditText searchData;
+    private final ArrayList<Shelter> shelterList = new ArrayList<>();
+    private final ArrayList<String> shelterNameList = new ArrayList<>();
+    private final ArrayList<Shelter> allShelters = localDb.getShelterList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home_screen);
-        search = findViewById(R.id.search_bttn);
-        shelters = findViewById(R.id.shelters);
+        Button search = findViewById(R.id.search_bttn);
+        Button shelters = findViewById(R.id.shelters);
         searchData = findViewById(R.id.search_data);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         localDb.clearData();
@@ -38,7 +36,7 @@ public class UserHomeScreenActivity extends AppCompatActivity {
     /**
      * Enters the shelter activity for the corresponding shelter that
      * is clicked on.
-     * @param view
+     * @param view the current view
      */
     public void onClickShelters(final View view) {
         Intent intent = new Intent(view.getContext(), MainActivity.class);
@@ -48,7 +46,7 @@ public class UserHomeScreenActivity extends AppCompatActivity {
     /**
      * Searches for shelters that match certain keywords and displays
      * the resulting shelters in a listview.
-     * @param view
+     * @param view the current view
      */
     public void onClickSearch(final View view) {
 
@@ -129,7 +127,7 @@ public class UserHomeScreenActivity extends AppCompatActivity {
     /**
      * Searches the for shelters that match certain keywords and displays the
      * results on Google Maps.
-     * @param view
+     * @param view the current view
      */
     //Search for Map
     public void onClickMapSearch(final View view) {
@@ -204,7 +202,7 @@ public class UserHomeScreenActivity extends AppCompatActivity {
 
     /**
      * Logs the user out of the application.
-     * @param view
+     * @param view the current view
      */
     public void onClickLogout(final View view) {
         FirebaseAuth.getInstance().signOut();
@@ -214,12 +212,12 @@ public class UserHomeScreenActivity extends AppCompatActivity {
 
     /**
      * Checks if the search contains any of the keywords.
-     * @param search
+     * @param search the current search query
      * @return Returns a boolean of whether or not
      * the search parameters contain any of the keywords.
      */
     public boolean checkSearchParam(String search) {
-        ArrayList<String> validSearch = new ArrayList<String>();
+        ArrayList<String> validSearch = new ArrayList<>();
         validSearch.add("Male");
         validSearch.add("Female");
         validSearch.add("Women");

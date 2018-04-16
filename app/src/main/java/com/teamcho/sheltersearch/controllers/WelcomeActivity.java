@@ -13,9 +13,7 @@ import com.teamcho.sheltersearch.model.Database;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    Database localDb = Database.getInstance();
-    Button login;
-    Button register;
+    private final Database localDb = Database.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +25,13 @@ public class WelcomeActivity extends AppCompatActivity {
             localDb.loadData();
         }
 
-        login = findViewById(R.id.login);
-        register = findViewById(R.id.register);
+        Button login = findViewById(R.id.login);
+        Button register = findViewById(R.id.register);
     }
 
     /**
      * Goes to the login screen.
-     * @param view
+     * @param view the current view
      */
     public void onClickLogin(View view) {
         Intent a = new Intent(view.getContext(), LoginActivity.class);
@@ -42,7 +40,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     /**
      * Goes to the registration screen.
-     * @param view
+     * @param view the current view
      */
     public void onClickRegister(View view) {
         Intent b = new Intent(view.getContext(), RegisterActivity.class);

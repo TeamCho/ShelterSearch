@@ -20,21 +20,18 @@ import com.teamcho.sheltersearch.model.Database;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Database localDb = Database.getInstance();
-    Button logout;
-    ListView listView;
-    ArrayList<String> names;
-    ArrayAdapter<String> adapter;
+    private final Database localDb = Database.getInstance();
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        logout = findViewById(R.id.logout);
+        Button logout = findViewById(R.id.logout);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-        names = localDb.getShelterNameList();
-        listView = findViewById(R.id.list);
+        ArrayList<String> names = localDb.getShelterNameList();
+        ListView listView = findViewById(R.id.list);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, names);
         runOnUiThread(new Runnable() {
             public void run() {
@@ -56,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Logs the user into the application.
-     * @param view
+     * @param view the current view
      */
     public void onClickLogout(View view) {
         FirebaseAuth.getInstance().signOut();
@@ -66,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Goes back to the user home screen.
-     * @param view
+     * @param view the current view
      */
     public void onBack(View view) {
         localDb.clearData();

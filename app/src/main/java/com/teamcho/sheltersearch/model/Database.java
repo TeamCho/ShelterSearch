@@ -33,8 +33,8 @@ public class Database {
     }
 
     private ArrayList<String> shelterNameList = new ArrayList<>();
-    private ArrayList<Shelter> shelterList = new ArrayList<Shelter>();
-    private HashMap<String, User> userList = new HashMap<>();
+    private ArrayList<Shelter> shelterList = new ArrayList<>();
+    private final HashMap<String, User> userList = new HashMap<>();
 
     /**
      * A method to load the data on firebase into the local database
@@ -51,6 +51,7 @@ public class Database {
                 for (DataSnapshot item : children) {
                     Shelter s = item.getValue(Shelter.class);
                     shelterList.add(s);
+                    assert s != null;
                     shelterNameList.add(s.getName());
                 }
 
@@ -69,6 +70,7 @@ public class Database {
 
                 for (DataSnapshot item : children) {
                     User r = item.getValue(User.class);
+                    assert r != null;
                     userList.put(r.getUid(), r);
                 }
 

@@ -31,6 +31,12 @@ public class Shelter {
 
     }
 
+    /**
+     * Books a bed for user if it meets the requirements
+     *
+     * @param beds number of beds to book
+     * @return whether the booking happened or not
+     */
     public boolean bookBed (int beds) {
         //TODO: Fix the if statement in accordance with the user variable and number to book.
         if(vacancies - beds > 0) {
@@ -58,6 +64,10 @@ public class Shelter {
 
     }
 
+    /**
+     * Method to cancel reservation
+     * @param beds number of beds that user had
+     */
     public void cancelReservation(int beds) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();

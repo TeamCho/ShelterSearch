@@ -34,8 +34,6 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        Button cancel = findViewById(R.id.cancel);
-        Button login = findViewById(R.id.login);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         alert = findViewById(R.id.alert);

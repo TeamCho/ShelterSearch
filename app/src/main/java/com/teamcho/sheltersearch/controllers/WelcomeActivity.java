@@ -27,6 +27,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         Button login = findViewById(R.id.login);
         Button register = findViewById(R.id.register);
+        Button reset = findViewById(R.id.reset);
     }
 
     /**
@@ -44,6 +45,11 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     public void onClickRegister(View view) {
         Intent b = new Intent(view.getContext(), RegisterActivity.class);
+        startActivity(b);
+    }
+
+    public void onClickReset(View view) {
+        Intent b = new Intent(view.getContext(), ResetActivity.class);
         startActivity(b);
     }
 }

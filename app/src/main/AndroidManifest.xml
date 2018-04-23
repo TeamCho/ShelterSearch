@@ -28,6 +28,7 @@
         <activity android:name=".controllers.LoginActivity" />
         <activity android:name=".controllers.RegisterActivity" />
         <activity android:name=".controllers.MainActivity" />
+        <activity android:name=".controllers.ResetActivity"/>
         <activity
             android:name=".controllers.ShelterActivity"
             android:label="@string/title_activity_shelter"
